@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>やましょーの知識盲点マップ</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --card: #16161f;
+    --border: #2a2a3a;
+    --accent1: #ff6b35;
+    --accent2: #7b61ff;
+    --accent3: #00d4a8;
+    --accent4: #ff3c8e;
+    --text: #e8e8f0;
+    --text-dim: #7a7a9a;
+    --glow: rgba(123, 97, 255, 0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.5;
+  }
+
+  header {
+    padding: 3rem 2rem 2rem;
+    text-align: center;
+    position: relative;
+  }
+
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent2), var(--accent1), transparent);
+  }
+
+  .eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent3);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.2s;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.4s;
+  }
+
+  h1 span { color: var(--accent1); }
+
+  .subtitle {
+    margin-top: 0.8rem;
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.6s;
+  }
+
+  /* Score summary */
+  .score-bar {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.8s;
+  }
+
+  .score-item {
+    text-align: center;
+  }
+
+  .score-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .score-label {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin-top: 0.3rem;
+  }
+
+  /* Filter tabs */
+  .filters {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-dim);
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.2s;
+    letter-spacing: 0.05em;
+  }
+
+  .filter-btn:hover, .filter-btn.active {
+    border-color: var(--accent2);
+    color: var(--text);
+    background: rgba(123, 97, 255, 0.1);
+  }
+
+  /* Main grid */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1.5rem;
+    padding: 1.5rem 2rem 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s;
+    opacity: 0;
+    animation: fadeUp 0.5s ease forwards;
+    cursor: pointer;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+
+  .card.hidden { display: none; }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.2rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .severity-badge {
+    flex-shrink: 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 0.3rem 0.6rem;
+    border-radius: 2px;
+    letter-spacing: 0.1em;
+  }
+
+  .sev-high { background: rgba(255, 60, 142, 0.2); color: var(--accent4); border: 1px solid rgba(255,60,142,0.3); }
+  .sev-mid  { background: rgba(255, 107, 53, 0.2); color: var(--accent1); border: 1px solid rgba(255,107,53,0.3); }
+  .sev-low  { background: rgba(0, 212, 168, 0.15); color: var(--accent3); border: 1px solid rgba(0,212,168,0.3); }
+
+  .card-title-wrap { flex: 1; }
+
+  .card-category {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--text-dim);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+
+  .card-title {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .card-body { padding: 1.2rem 1.5rem; }
+
+  .blindspot-desc {
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: var(--text-dim);
+    margin-bottom: 1rem;
+  }
+
+  .what-you-know {
+    background: rgba(0, 212, 168, 0.05);
+    border-left: 2px solid var(--accent3);
+    padding: 0.6rem 0.8rem;
+    margin-bottom: 0.8rem;
+    border-radius: 0 2px 2px 0;
+  }
+
+  .what-you-know .label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--accent3);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.3rem;
+  }
+
+  .what-you-know p {
+    font-size: 0.82rem;
+    line-height: 1.6;
+    color: var(--text);
+  }
+
+  .what-missing {
+    background: rgba(255, 60, 142, 0.05);
+    border-left: 2px solid var(--accent4);
+    padding: 0.6rem 0.8rem;
+    margin-bottom: 1rem;
+    border-radius: 0 2px 2px 0;
+  }
+
+  .what-missing .label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--accent4);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.3rem;
+  }
+
+  .what-missing p {
+    font-size: 0.82rem;
+    line-height: 1.6;
+    color: var(--text);
+  }
+
+  /* Checklist */
+  .checklist-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    letter-spacing: 0.15em;
+    margin-bottom: 0.6rem;
+  }
+
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .check-box {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s;
+    margin-top: 2px;
+  }
+
+  .check-box.checked {
+    background: var(--accent3);
+    border-color: var(--accent3);
+  }
+
+  .check-box.checked::after {
+    content: '✓';
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: #000;
+  }
+
+  .check-text {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--text);
+    cursor: pointer;
+  }
+
+  .check-text.done { text-decoration: line-through; color: var(--text-dim); }
+
+  /* Progress bar */
+  .progress-wrap {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .progress-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.4rem;
+  }
+
+  .progress-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--text-dim);
+  }
+
+  .progress-pct {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--accent2);
+  }
+
+  .progress-track {
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent2), var(--accent3));
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+
+  /* Color strip at top of card by category */
+  .strip { height: 3px; }
+  .strip-career { background: linear-gradient(90deg, var(--accent2), var(--accent1)); }
+  .strip-finance { background: linear-gradient(90deg, var(--accent3), var(--accent2)); }
+  .strip-creative { background: linear-gradient(90deg, var(--accent1), var(--accent4)); }
+  .strip-society { background: linear-gradient(90deg, var(--accent4), var(--accent2)); }
+  .strip-self { background: linear-gradient(90deg, var(--accent3), var(--accent1)); }
+
+  /* Animation */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .card:nth-child(1) { animation-delay: 0.1s; }
+  .card:nth-child(2) { animation-delay: 0.2s; }
+  .card:nth-child(3) { animation-delay: 0.3s; }
+  .card:nth-child(4) { animation-delay: 0.4s; }
+  .card:nth-child(5) { animation-delay: 0.5s; }
+  .card:nth-child(6) { animation-delay: 0.6s; }
+  .card:nth-child(7) { animation-delay: 0.7s; }
+
+  /* Total counter */
+  .total-progress {
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    padding: 0 2rem;
+  }
+
+  .total-bar-wrap { position: relative; }
+  .total-track {
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .total-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent4), var(--accent2), var(--accent3));
+    border-radius: 3px;
+    transition: width 0.5s ease;
+  }
+  .total-label {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.4rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--text-dim);
+  }
+  .total-label span:last-child { color: var(--accent2); }
+
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    border-top: 1px solid var(--border);
+    letter-spacing: 0.1em;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <p class="eyebrow">Knowledge Blindspot Map // やましょー Ver.1</p>
+  <h1>おまえの<span>盲点</span>マップ</h1>
+  <p class="subtitle">探求フォルダのドキュメントを読んで、<br>「知ってること」と「まだ触れてないこと」を可視化しました。</p>
+</header>
+
+<div class="score-bar">
+  <div class="score-item">
+    <div class="score-num" style="color:var(--accent4)" id="high-count">0</div>
+    <div class="score-label">HIGH 優先</div>
+  </div>
+  <div class="score-item">
+    <div class="score-num" style="color:var(--accent1)" id="mid-count">0</div>
+    <div class="score-label">MEDIUM</div>
+  </div>
+  <div class="score-item">
+    <div class="score-num" style="color:var(--accent3)" id="low-count">0</div>
+    <div class="score-label">LOW 余裕あり</div>
+  </div>
+  <div class="score-item">
+    <div class="score-num" style="color:var(--accent2)" id="checked-count">0</div>
+    <div class="score-label">クリア済み</div>
+  </div>
+</div>
+
+<div class="total-progress">
+  <div class="total-track"><div class="total-fill" id="total-fill" style="width:0%"></div></div>
+  <div class="total-label"><span>全体の探求進捗</span><span id="total-pct">0%</span></div>
+</div>
+
+<div class="filters">
+  <button class="filter-btn active" onclick="filterCards('all', this)">すべて</button>
+  <button class="filter-btn" onclick="filterCards('career', this)">キャリア</button>
+  <button class="filter-btn" onclick="filterCards('finance', this)">お金・事業</button>
+  <button class="filter-btn" onclick="filterCards('creative', this)">クリエイティブ</button>
+  <button class="filter-btn" onclick="filterCards('society', this)">社会・世界</button>
+  <button class="filter-btn" onclick="filterCards('self', this)">自己理解</button>
+</div>
+
+<div class="grid" id="grid">
+
+  <!-- 1 -->
+  <div class="card" data-cat="finance">
+    <div class="strip strip-finance"></div>
+    <div class="card-header">
+      <span class="severity-badge sev-high">HIGH</span>
+      <div class="card-title-wrap">
+        <div class="card-category">お金・事業</div>
+        <div class="card-title">収益の「出口」設計が未完成</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blindspot-desc">収益ランク（SS〜D）のフレームワークは超精緻。でも「どこで稼ぎを止めるか」「スケールの天井」「事業の売却・継承」は全く触れていない。</p>
+      <div class="what-you-know">
+        <div class="label">✓ 知ってること</div>
+        <p>各活動の意味価値・経済価値の分類。Sランクで稼いでSSで仕込む循環モデル。</p>
+      </div>
+      <div class="what-missing">
+        <div class="label">✗ まだ触れてないこと</div>
+        <p>年商〇〇円になったら次は何？法人化のタイミング、税務戦略、資産運用、事業を「資産」として扱う視点。</p>
+      </div>
+      <div class="checklist-title">NEXT ACTION</div>
+      <div class="check-item">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <span class="check-text" onclick="toggleCheck(this.previousElementSibling)">「個人事業 → 法人化」のメリデメを自分の数字で試算する</span>
+      </div>
+      <div class="check-item">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <span class="check-text" onclick="toggleCheck(this.previousElementSibling)">「5年後の自分」の財務シートを1枚書いてみる</span>
+      </div>
+      <div class="check-item">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <span class="check-text" onclick="toggleCheck(this.previousElementSibling)">freee / 弥生などで確定申告・節税の仕組みを理解する</span>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-header">
+          <span class="progress-label">進捗</span>
+          <span class="progress-pct" id="pct-1">0%</span>
+        </div>
+        <div class="progress-track"><div class="progress-fill" id="fill-1" style="width:0%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="card" data-cat="career">
+    <div class="strip strip-career"></div>
+    <div class="card-header">
+      <span class="severity-badge sev-high">HIGH</span>
+      <div class="card-title-wrap">
+        <div class="card-category">キャリア</div>
+        <div class="card-title">「組織の内側」への解像度が低い</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blindspot-desc">パナソニックを相当深く分析してるのに、自分が「組織の外」にいる前提で語ってる。組織内で生き延びる戦術・政治・権力構造への理解が薄い。</p>
+      <div class="what-you-know">
+        <div class="label">✓ 知ってること</div>
+        <p>「個」として関わる業務委託スタイルのメリット。組織の文化変革の失敗パターン（パナソニックケース）。</p>
+      </div>
+      <div class="what-missing">
+        <div class="label">✗ まだ触れてないこと</div>
+        <p>大組織の意思決定プロセス、稟議・根回しの実態、「内部から変える人」の戦略。外の視点だけでは見えない死角がある。</p>
+      </div>
+      <div class="checklist-title">NEXT ACTION</div>
+      <div class="check-item">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <span class="check-text" onclick="toggleCheck(this.previousElementSibling)">企業内改革に成功した人の一次情報（書籍・インタビュー）を1冊読む</span>
+      </div>
+      <div class="check-item">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <span class="check-text" onclick="toggleCheck(this.previousElementSibling)">クライアントの組織図と意思決定フローを1社でも理解してみる</span>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-header">
+          <span class="progress-label">進捗</span>
+          <span class="progress-pct" id="pct-2">0%</span>
+        </div>
+        <div class="progress-track"><div class="progress-fill" id="fill-2" style="width:0%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="card" data-cat="finance">
+    <div class="strip strip-finance"></div>
+    <div class="card-header">
+      <span class="severity-badge sev-high">HIGH</span>
+      <div class="card-title-wrap">
+        <div class="card-category">お金・事業</div>
+        <div class="card-title">投資・資産形成の知識がゼロ地帯</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blindspot-desc">稼ぐ力と使う哲学は整ってる。でも「増やす」領域が完全に空白。ドキュメント全体を通じて株・投資信託・不動産への言及が一切ない。</p>
+      <div class="what-you-know">
+        <div class="label">✓ 知ってること</div>
+        <p>スキルに再投資することで動的安定を作る考え方。「SSランク」に時間とお金を循環させるモデル。</p>
+      </div>
+      <div class="what-missing">
+        <div class="label">✗ まだ触れてないこと</div>
+        <p>インデックス投資・NISA・iDeCo。「スキル資本」と「金融資本」の両輪という概念。</p>
+      </div>
+      <div class="checklist-title">NEXT ACTION</div>
+      <div class="check-item">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <span class="check-text" onclick="toggleCheck(this.previousElementSibling)">NISAで月3000円でもいいから始めてみる</span>
+      </div>
+      <div class="check-item">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <span class="check-text" onclick="toggleCheck(this.previousElementSibling)">「お金の大学」or 両学長系コンテンツで基礎だけ押さえる</span>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-header">
+          <span class="progress-label">進捗</span>
+          <span class="progress-pct" id="pct-3">0%</span>
+        </div>
+        <div class="progress-track"><div class="progress-fill" id="fill-3" style="width:0%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="card" data-cat="creative">
+    <div class="strip strip-creative"></div>
+    <div class="card-header">
+      <span class="severity-badge sev-mid">MID</span>
+      <div class="card-title-wrap">
+        <div class="card-category">クリエイティブ</div>
+        <div class="card-title">「届け方」のシステムがない</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blindspot-desc">作品・活動の質は高い。でも「どう届けるか」のマーケティング・流通・プロモーション設計が属人的な感覚に依存している。</p>
+      <div class="what-you-know">
+        <div class="label">✓ 知ってること</div>
+        <p>Fanbox・インスタなど複数チャネルを持つ。作品の「意味価値」を言語化する力。</p>
+      </div>
+      <div class="what-missing">
+        <div class="label">✗ まだ触れてないこと</div>
+        <p>SEO・アルゴリズム対策、コンテンツカレンダー設計、「バイラル」を意図的に起こす仕組み、メールリスト構築。</p>
+      </div>
+      <div class="checklist-title">NEXT ACTION</div>
+      <div class="check-item">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <span class="check-text" onclick="toggleCheck(this.previousElementSibling)">自分の投稿でいちばんバズったものの「なぜ？」を言語化する</span>
+      </div>
+      <div class="check-item">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <span class="check-text" onclick="toggleCheck(this.previousElementSibling)">月1本「意図的に設計した」投稿を試してみる</span>
+      </div>
+      <div class="check-item">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <span class="check-text" onclick="toggleCheck(this.previousElementSibling)">ニュースレター（Substack等）の可能性を探る</span>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-header">
+          <span class="progress-label">進捗</span>
+          <span class="progress-pct" id="pct-4">0%</span>
+        </div>
+        <div class="progress-track"><div class="progress-fill" id="fill-4" style="width:0%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="card" data-cat="self">
+    <div class="strip strip-self"></div>
+    <div class="card-header">
+      <span class="severity-badge sev-mid">MID</span>
+      <div class="card-title-wrap">
+        <div class="card-category">自己理解</div>
+        <div class="card-title">「失敗の記録」が少ない</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blindspot-desc">ドキュメントは「うまくいくための戦略」ばかり。失敗・後悔・間違いの振り返りがほとんどなく、学習の偏りが生まれやすい。</p>
+      <div class="what-you-know">
+        <div class="label">✓ 知ってること</div>
+        <p>成功体験の言語化・フレーミングが上手い。「SSランク」という源泉管理の概念。</p>
+      </div>
+      <div class="what-missing">
+        <div class="label">✗ まだ触れてないこと</div>
+        <p>「なぜあのプロジェクトは失敗したか」「判断を間違えたポイント」の体系的振り返り。ネガティブな感情を探求素材にすること。</p>
+      </div>
+      <div class="checklist-title">NEXT ACTION</div>
+      <div class="check-item">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <span class="check-text" onclick="toggleCheck(this.previousElementSibling)">「失敗ログ」ドキュメントを探求フォルダに1枚作ってみる</span>
+      </div>
+      <div class="check-item">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <span class="check-text" onclick="toggleCheck(this.previousElementSibling)">THE LUV BUGSプロジェクトで「次回改善したいこと」を3つ書く</span>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-header">
+          <span class="progress-label">進捗</span>
+          <span class="progress-pct" id="pct-5">0%</span>
+        </div>
+        <div class="progress-track"><div class="progress-fill" id="fill-5" style="width:0%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6 -->
+  <div class="card" data-cat="society">
+    <div class="strip strip-society"></div>
+    <div class="card-header">
+      <span class="severity-badge sev-mid">MID</span>
+      <div class="card-title-wrap">
+        <div class="card-category">社会・世界</div>
+        <div class="card-title">地政学は「観客」視点どまり</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blindspot-desc">戦争・安全保障のドキュメントはロジカルで良い。でも「自分の仕事・生活・音楽」とどう繋がるか？の接続が弱い。世界を知っても、自分への翻訳ができていない。</p>
+      <div class="what-you-know">
+        <div class="label">✓ 知ってること</div>
+        <p>抑止理論、ウクライナ教訓の整理、占領の実態など基本構造は理解している。</p>
+      </div>
+      <div class="what-missing">
+        <div class="label">✗ まだ触れてないこと</div>
+        <p>「地政学的リスクが日本の音楽シーンや教育市場に与える影響」「円安・エネルギー問題が自分の活動費にどう影響するか」の個人的な翻訳。</p>
+      </div>
+      <div class="checklist-title">NEXT ACTION</div>
+      <div class="check-item">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <span class="check-text" onclick="toggleCheck(this.previousElementSibling)">「世界のこの動きは、俺の仕事にどう影響するか？」を1つ書いてみる</span>
+      </div>
+      <div class="check-item">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <span class="check-text" onclick="toggleCheck(this.previousElementSibling)">円安が続く場合の「海外展開」の可能性を考える</span>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-header">
+          <span class="progress-label">進捗</span>
+          <span class="progress-pct" id="pct-6">0%</span>
+        </div>
+        <div class="progress-track"><div class="progress-fill" id="fill-6" style="width:0%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7 -->
+  <div class="card" data-cat="self">
+    <div class="strip strip-self"></div>
+    <div class="card-header">
+      <span class="severity-badge sev-low">LOW</span>
+      <div class="card-title-wrap">
+        <div class="card-category">自己理解</div>
+        <div class="card-title">「人間関係の設計」は直感任せ</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blindspot-desc">父との関係、生徒との関係、コラボ相手との関係…全部「その時の流れ」で動いている。意図的な関係設計の概念が薄い。</p>
+      <div class="what-you-know">
+        <div class="label">✓ 知ってること</div>
+        <p>「対話」の力への信頼。みんぐるまんぐるなど場の設計感覚。父との関係変化の事実整理。</p>
+      </div>
+      <div class="what-missing">
+        <div class="label">✗ まだ触れてないこと</div>
+        <p>「誰と深く関わるか」の基準、ネットワーキング戦略、長期的な信頼の積み上げ方。「対話」と「依頼」の違い。</p>
+      </div>
+      <div class="checklist-title">NEXT ACTION</div>
+      <div class="check-item">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <span class="check-text" onclick="toggleCheck(this.previousElementSibling)">「この1年で深めたい関係」を3人リストアップしてみる</span>
+      </div>
+      <div class="check-item">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <span class="check-text" onclick="toggleCheck(this.previousElementSibling)">「みんぐるまんぐる」の参加者から1人、深い話をする機会を作る</span>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-header">
+          <span class="progress-label">進捗</span>
+          <span class="progress-pct" id="pct-7">0%</span>
+        </div>
+        <div class="progress-track"><div class="progress-fill" id="fill-7" style="width:0%"></div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  GENERATED FROM やましょーの探求フォルダ // CLAUDE × GOOGLE DRIVE // 2026.03
+</footer>
+
+<script>
+  const TOTAL_CHECKS = document.querySelectorAll('.check-box').length;
+
+  function updateGlobalProgress() {
+    const checked = document.querySelectorAll('.check-box.checked').length;
+    document.getElementById('checked-count').textContent = checked;
+    const pct = Math.round((checked / TOTAL_CHECKS) * 100);
+    document.getElementById('total-fill').style.width = pct + '%';
+    document.getElementById('total-pct').textContent = pct + '%';
+  }
+
+  function updateCardProgress(card) {
+    const boxes = card.querySelectorAll('.check-box');
+    if (!boxes.length) return;
+    const cardIndex = Array.from(document.querySelectorAll('.card')).indexOf(card) + 1;
+    const checked = card.querySelectorAll('.check-box.checked').length;
+    const pct = Math.round((checked / boxes.length) * 100);
+    const fillEl = document.getElementById('fill-' + cardIndex);
+    const pctEl = document.getElementById('pct-' + cardIndex);
+    if (fillEl) fillEl.style.width = pct + '%';
+    if (pctEl) pctEl.textContent = pct + '%';
+  }
+
+  function toggleCheck(box) {
+    box.classList.toggle('checked');
+    const textEl = box.nextElementSibling;
+    if (textEl) textEl.classList.toggle('done', box.classList.contains('checked'));
+    const card = box.closest('.card');
+    updateCardProgress(card);
+    updateGlobalProgress();
+  }
+
+  function filterCards(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.card').forEach(card => {
+      if (cat === 'all' || card.dataset.cat === cat) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  }
+
+  // Count badges
+  document.getElementById('high-count').textContent = document.querySelectorAll('.sev-high').length;
+  document.getElementById('mid-count').textContent = document.querySelectorAll('.sev-mid').length;
+  document.getElementById('low-count').textContent = document.querySelectorAll('.sev-low').length;
+  updateGlobalProgress();
+</script>
+</body>
+</html>
