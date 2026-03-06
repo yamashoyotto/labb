@@ -1,179 +1,204 @@
 [
     {
         "title": "大阪・関西万博 EXPOホール「シャインハット」投影用アンビエント作品 / こみゃくシミュレーション映像",
-        "tag": "composer",
+        "tag": "音楽",
         "thumb": "assets/images/expo.png",
         "url": "https://x.com/lucknknock/status/1953773309708935658?s=20",
-        "date": "2025.8.14",
-        "description": "万博のシンボル的空間での投影映像に向けた、10分を超えるアンビエント音響作品です。空間の広がりを意識したレイヤーの重なりと、生命の循環を感じさせる『こみゃくシミュレーション』に同期した動的な音響演出を行っています。"
+        "date": "2025.8",
+        "description": "大阪・関西万博 EXPOホール「シャインハット」の投影映像向けに制作した、10分を超えるアンビエント音響作品。空間の広がりを意識したレイヤーの重なりと、生命の循環を感じさせる『こみゃくシミュレーション』に同期した動的な音響演出。"
     },
     {
-        "title": "Sanrio Virtual Festival 2025 — キヌ パフォーマンス 作曲・ミックス・マスタリング・サウンドデザイン",
-        "tag": ["composer", "metaverse", "engineering"],
+        "title": "土とアンビエント — 旧八女郡役所にて主催 / 確率生成アンビエントライブ「shota_yamamoto」",
+        "tag": "音楽",
+        "thumb": "",
+        "url": "",
+        "date": "2025.11",
+        "description": "旧八女郡役所にて「土とアンビエント」を主催。自然環境音と確率的に生成される電子音を組み合わせて空間を形づくるアンビエントライブプロジェクト「shota_yamamoto」として出演。電子音は特定のノートを手で置かず、確率的な生成アルゴリズムのみで構成するという制約のもと、人為的な演奏性を抑え、自然音と生成音がゆるやかに"融合"し、場そのものが変化していくような音響体験を作る。"
+    },
+    {
+        "title": "SanrioVFes 2025 — キヌ「トーチライト」楽曲制作・ミックス・マスタリング・サウンドデザイン",
+        "tag": "音楽",
         "thumb": "assets/images/sanrio2025.jpg",
         "url": "",
-        "date": "2025.3.2",
-        "description": "SANRIO Virtual Festival 2025にて開催されたキヌ 7th live『トーチライト』のために書き下ろした楽曲です。Raindance Immersive 2025にてBEST MUSIC SHOWを受賞。深淵から希望へと向かう力強いサウンドデザインを目指しました。"
+        "date": "2025.3",
+        "description": "SANRIO Virtual Festival 2025にて開催されたVTuberキヌの新作ショー「トーチライト」にて楽曲制作を担当。イギリスの国際映画祭『Raindance Immersive 2025』にてBEST MUSIC SHOWを受賞。深淵から希望へと向かう力強いサウンドデザインを目指した。"
     },
     {
-        "title": "トーチライト feat.kinu Single Release",
-        "tag": "release",
+        "title": "トーチライト feat.kinu — シングルリリース",
+        "tag": "音楽",
         "thumb": "https://f4.bcbits.com/img/a1605349625_10.jpg",
         "url": "https://yot-kun.bandcamp.com/album/feat-kinu-2",
-        "date": "2025.6.29"
+        "date": "2025.6",
+        "description": "SanrioVFes2025のために制作した「トーチライト」をシングルとしてリリース。Raindance Immersive 2025 BEST MUSIC SHOW受賞作品。"
     },
     {
-        "title": "Musical Treasure Hunt—Spectral Remix / 新作サンリオキャラクターミニパレード 作曲・サウンドデザイン",
-        "tag": ["composer", "metaverse"],
+        "title": "Musical Treasure Hunt — Spectral Remix / 新作サンリオキャラクターミニパレード 作曲・サウンドデザイン",
+        "tag": "音楽",
         "thumb": "assets/images/sanrio2024.jpg",
         "url": "",
-        "date": "2024.9.13"
+        "date": "2024.9",
+        "description": "SanrioVFes 2024 Summer 新作ミニパレード「Musical Treasure Hunt – Spectral Remix」の作曲・サウンドデザインを担当。"
     },
     {
         "title": "solitary departure",
-        "tag": "release",
+        "tag": "音楽",
         "thumb": "https://i1.sndcdn.com/artworks-P9kPR9mjLOL0iJDt-ktk4vA-t1080x1080.jpg",
         "url": "https://soundcloud.com/yoxtellar/solitary-departure",
-        "date": "2024.12.25"
+        "date": "2024.12"
     },
     {
         "title": "our intelligence 3 release party 出演@新宿SPACE",
-        "tag": "live",
+        "tag": "音楽",
         "thumb": "assets/images/oi3r.png",
         "url": "",
         "date": "2024.11"
     },
     {
         "title": "ASTRA4 出演@VRChat",
-        "tag": ["live", "metaverse"],
+        "tag": "音楽",
         "thumb": "assets/images/astr4.jpg",
         "url": "",
         "date": "2024.4"
     },
     {
-        "title": "Sound Adventure Log",
-        "tag": "release",
-        "thumb": "https://img.youtube.com/vi/DIWOgh0tSj4/maxresdefault.jpg",
-        "url": "https://youtu.be/DIWOgh0tSj4?si=q9YJ5VGAm6nFH2uA",
-        "date": "2024.10.27"
+        "title": "VR DTM Community \"SoundGeek\" 主催",
+        "tag": "音楽",
+        "thumb": "",
+        "url": "",
+        "date": "2023",
+        "description": "VRChatにて音楽制作者コミュニティ活動を展開。音楽制作の楽しさを共有し、創造的な交流を深める場。DTM Lightning Talk会、音素材共有コンピレーションアルバム制作、DTM初心者講座、10分DTMチャレンジ回 などの企画を実施。"
     },
     {
-        "title": "Sanrio Virtual Festival 2023 — キヌ パフォーマンス 作曲・ミックス・マスタリング・サウンドデザイン",
-        "tag": ["composer", "metaverse"],
-        "thumb": "https://img.youtube.com/vi/LwDbrmUhdN0/maxresdefault.jpg",
-        "url": "https://youtu.be/LwDbrmUhdN0",
-        "date": "2023.1.21"
-    },
-    {
-        "title": "emergence!",
-        "tag": "release",
-        "thumb": "https://img.youtube.com/vi/JNLpsOv8GI8/maxresdefault.jpg",
-        "url": "https://youtu.be/JNLpsOv8GI8",
-        "date": "2023.10.29"
-    },
-    {
-        "title": "wisteria",
-        "tag": "release",
-        "thumb": "https://img.youtube.com/vi/R0Ij85PKCKI/maxresdefault.jpg",
-        "url": "https://youtu.be/R0Ij85PKCKI?si=t5oEvnHH_9-FIyoC",
-        "date": "2023.10.29"
-    },
-    {
-        "title": "Glitch Jazz in VRC Glitch Live PAを担当@VRChat",
-        "tag": ["live", "metaverse"],
+        "title": "Glitch Jazz in VRC — Glitch Live PAを担当@VRChat",
+        "tag": "音楽",
         "thumb": "assets/images/gj.jpg",
         "url": "",
         "date": "2023.11"
     },
     {
-        "title": "はじまりはおわり、feat. kinu",
-        "tag": "release",
+        "title": "SanrioVFes 2023 — キヌ「はじまりはおわり、feat.kinu」楽曲制作",
+        "tag": "音楽",
         "thumb": "https://img.youtube.com/vi/LwDbrmUhdN0/maxresdefault.jpg",
-        "url": "",
-        "date": "2023.5.14"
+        "url": "https://youtu.be/LwDbrmUhdN0",
+        "date": "2023.1",
+        "description": "SanrioVFes 2023にてVTuberキヌのパフォーマンス「はじまりはおわり、feat.kinu」の楽曲制作・ミックス・マスタリング・サウンドデザインを担当。"
     },
     {
-        "title": "Perfect World meets Jimmy",
-        "tag": "composer",
-        "thumb": "assets/images/perfectworld.jpg",
-        "url": "",
-        "date": "2022.9.2"
+        "title": "emergence!",
+        "tag": "音楽",
+        "thumb": "https://img.youtube.com/vi/JNLpsOv8GI8/maxresdefault.jpg",
+        "url": "https://youtu.be/JNLpsOv8GI8",
+        "date": "2023.10"
+    },
+    {
+        "title": "wisteria",
+        "tag": "音楽",
+        "thumb": "https://img.youtube.com/vi/R0Ij85PKCKI/maxresdefault.jpg",
+        "url": "https://youtu.be/R0Ij85PKCKI?si=t5oEvnHH_9-FIyoC",
+        "date": "2023.10"
     },
     {
         "title": "#BRAINBREAK_VRC 出演＠VRChat",
-        "tag": ["live", "metaverse"],
+        "tag": "音楽",
         "thumb": "assets/images/bb.jpg",
         "url": "",
         "date": "2022.12"
     },
     {
-        "title": "Friend Ship",
-        "tag": "release",
-        "thumb": "assets/images/friend_ship.jpg",
-        "url": "",
-        "date": "2022.7.11"
-    },
-    {
         "title": "Life goes on EP",
-        "tag": "release",
+        "tag": "音楽",
         "thumb": "https://i1.sndcdn.com/artworks-XD0dTPDPtX5JWVUz-mxXHPA-t1080x1080.jpg",
         "url": "https://youtu.be/DlF3gm22Hm4?si=9lLOafVm5dXbmfFE",
-        "date": "2022.4.15"
+        "date": "2022.4"
     },
     {
         "title": "lJUS 3/20211024 \"Lab\" 出演@VRChat",
-        "tag": ["live", "metaverse"],
+        "tag": "音楽",
         "thumb": "assets/images/ljus.jpg",
         "url": "",
         "date": "2021.11"
     },
     {
         "title": "My Brave Story EP",
-        "tag": "release",
+        "tag": "音楽",
         "thumb": "https://f4.bcbits.com/img/a0162034650_10.jpg",
         "url": "https://yot-kun.bandcamp.com/album/my-brave-story-ep",
-        "date": "2021.11.14"
-    },
-    {
-        "title": "Perfect World",
-        "tag": "release",
-        "thumb": "assets/images/perfect_world.jpg",
-        "url": "https://youtu.be/IXncPcRNziw",
-        "date": "2021.7.16"
-    },
-    {
-        "title": "Flowers in the Cage",
-        "tag": "release",
-        "thumb": "assets/images/flowers_in_the_cage.jpg",
-        "url": "",
-        "date": "2020.12.4"
+        "date": "2021.11"
     },
     {
         "title": "AMENZOOSTREAM 出演@Twitch",
-        "tag": "live",
+        "tag": "音楽",
         "thumb": "assets/images/amenzoos.jpg",
         "url": "",
         "date": "2020.11"
     },
     {
         "title": "AmenZoo @Amsterdam",
-        "tag": "live",
+        "tag": "音楽",
         "thumb": "assets/images/amenzoo.jpg",
         "url": "",
         "date": "2019.9"
     },
     {
         "title": "e-vacillation",
-        "tag": "release",
+        "tag": "音楽",
         "thumb": "https://f4.bcbits.com/img/a3462619655_10.jpg",
         "url": "https://yot-kun.bandcamp.com/album/e-vacillation",
-        "date": "2019.5.20"
+        "date": "2019.5"
     },
     {
         "title": "ANGURA vol.9 @Vancouver",
-        "tag": "live",
+        "tag": "音楽",
         "thumb": "assets/images/angura.jpeg",
         "url": "",
         "date": "2018.3"
+    },
+    {
+        "title": "ミュージックハッカソン in いいかねPalette",
+        "tag": "音楽",
+        "thumb": "",
+        "url": "",
+        "date": "2023",
+        "description": "一泊二日で音楽を作るDTMの合宿イベント。福岡県田川市にあるいいかねPaletteで開催。"
+    },
+    {
+        "title": "次世代型ITスクール ITeens Lab 講師",
+        "tag": "教育",
+        "thumb": "",
+        "url": "https://iteenslab.com",
+        "date": "2021.9",
+        "description": "小〜高校生向けオンラインITスクールで、Unity / Blender / 音楽制作のクラスを担当。「つくるって楽しい！」という気持ちを、みんなと分かち合えたらと思い、活動しています。"
+    },
+    {
+        "title": "よっとのDTM教室（音楽制作オンラインレッスン）",
+        "tag": "教育",
+        "thumb": "",
+        "url": "",
+        "date": "2025.1",
+        "description": "現役の音楽制作者（トラックメイカー）であり、子ども向けITスクールの講師でもある「よっと / yoxtellar」が教える、オンラインの初心者向けDTM教室。音楽理論からではなく、音を素材として集め、コラージュのように編集することを中心に、音楽制作の方法を学びます。楽器を演奏できなくても音楽を作ることが可能。"
+    },
+    {
+        "title": "受験マネジメントサロン Biden 特別講師",
+        "tag": "教育",
+        "thumb": "",
+        "url": "",
+        "date": "2023.6",
+        "description": "最新の総合型選抜（旧AO）入試・学校推薦型選抜入試に特化した完全オーダーメイド型プロジェクト「Biden」で特別講師・サイト運営者としてお手伝い。IT創作伴走支援（Unity・Blender・AI・音楽制作・メタバース）と、対話式のキャリア授業を担当。"
+    },
+    {
+        "title": "「歴史を面白く学ぶコテンラジオ」サムネイル制作担当",
+        "tag": "編集",
+        "thumb": "",
+        "url": "https://youtube.com/@COTEN_radio",
+        "date": "2020.6",
+        "description": "2020年6月からYoutubeサムネイル制作を担当（モンゴル編以降）。自分自身もコテンラジオを通じて、知識や価値観の面で多くの助けをいただいており、この気持ちが原動力となって楽しみながら制作を続けています。"
+    },
+    {
+        "title": "Podcast「新型オトナウィルス」音声編集担当",
+        "tag": "編集",
+        "thumb": "",
+        "url": "",
+        "date": "2023.9",
+        "description": "いいかねPalette会長の樋口さんと、ITeensLabの代表の古林さんが二人で話したりゲストを招いて色々お話するインターネットラジオ「新型オトナウィルス」の音声編集を担当。"
     }
 ]

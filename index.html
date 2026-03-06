@@ -12,11 +12,12 @@
   <header>
     <a class="logo-wrap" href="index.html">
       <span class="logo-main">やましょー</span>
-      <span class="logo-sub">composer · educator · yamashō</span>
+      <span class="logo-sub">yamashō — composer · educator</span>
     </a>
     <nav>
       <a href="index.html" class="active">works</a>
       <a href="profile.html">profile</a>
+      <a href="purpose.html">my purpose</a>
       <a href="contact.html">contact</a>
     </nav>
   </header>
@@ -25,10 +26,10 @@
     <div class="identity-bar">
       <span class="id-tag highlight">音楽制作</span>
       <span class="id-tag highlight">DTMレッスン</span>
-      <span class="id-tag">Unity</span>
+      <span class="id-tag">Unity / Blender</span>
       <span class="id-tag">ITeens Lab</span>
-      <span class="id-tag">体調最高ラジオ</span>
-      <span class="id-tag" style="margin-left:auto; font-style:italic;">→ yoxtellar (music alias)</span>
+      <span class="id-tag">コテンラジオ</span>
+      <span class="id-tag" style="margin-left:auto; font-style:italic; font-size:0.55rem;">music alias → yoxtellar</span>
     </div>
 
     <div class="social-bar">
@@ -42,12 +43,10 @@
 
     <div class="filters">
       <button class="filter-btn active" data-filter="all">all</button>
-      <button class="filter-btn" data-filter="composer">composer</button>
-      <button class="filter-btn" data-filter="live">live</button>
-      <button class="filter-btn" data-filter="release">release</button>
-      <button class="filter-btn" data-filter="engineering">engineering</button>
-      <button class="filter-btn" data-filter="metaverse">metaverse</button>
-      <button class="filter-btn" data-filter="other">other</button>
+      <button class="filter-btn" data-filter="音楽">音楽</button>
+      <button class="filter-btn" data-filter="教育">教育</button>
+      <button class="filter-btn" data-filter="編集">編集</button>
+      <button class="filter-btn" data-filter="その他">その他</button>
     </div>
 
     <div class="grid" id="worksGrid">
@@ -70,7 +69,6 @@
     .then(function(r) { return r.json(); })
     .then(function(works) {
       works = works.filter(function(w) { return w.title; });
-
       works.sort(function(a, b) {
         var tA = a.date ? new Date(a.date.replace(/\./g, '/')).getTime() : 0;
         var tB = b.date ? new Date(b.date.replace(/\./g, '/')).getTime() : 0;
@@ -81,24 +79,29 @@
       grid.innerHTML = '';
 
       works.forEach(function(w, i) {
-        var rawTags = Array.isArray(w.tag) ? w.tag : (w.tag ? w.tag.split(',') : ['other']);
-        var cleanTags = rawTags.map(function(t) { return t.trim().toLowerCase(); });
-        var tagLabel = cleanTags.map(function(t) { return t.replace('-', ' / '); }).join(', ');
+        var rawTags = Array.isArray(w.tag) ? w.tag : (w.tag ? [w.tag] : ['その他']);
+        var cleanTags = rawTags.map(function(t) { return t.trim(); });
+        var tagLabel = cleanTags.join(' · ');
         var dateHtml = w.date ? '<div class="work-date">' + w.date + '</div>' : '';
         var defaultImg = 'assets/images/yoxtellar_logo_A_reverse.png';
         var thumbSrc = w.thumb || defaultImg;
         var description = w.description || '';
-        var linkHtml = w.url ? '<a href="' + w.url + '" target="_blank" rel="noopener" class="detail-link">view project →</a>' : '';
+        var linkHtml = w.url ? '<a href="' + w.url + '" target="_blank" rel="noopener" class="detail-link">view →</a>' : '';
 
         var item = document.createElement('div');
         item.className = 'work-item';
         item.dataset.tags = cleanTags.join(',');
-        item.style.animationDelay = (i * 0.06 + 0.5) + 's';
+        item.style.animationDelay = (i * 0.05 + 0.5) + 's';
+
+        var hasThumb = w.thumb && w.thumb.length > 0;
+        var thumbHtml = hasThumb
+          ? '<img src="' + thumbSrc + '" onerror="this.src=\'' + defaultImg + '\'" alt="' + w.title + '" loading="lazy">'
+          : '<div class="thumb-placeholder"><span>' + tagLabel + '</span></div>';
 
         item.innerHTML =
           '<div class="work-trigger">' +
             '<div class="thumb-wrap">' +
-              '<img src="' + thumbSrc + '" onerror="this.src=\'' + defaultImg + '\'" alt="' + w.title + '" loading="lazy">' +
+              thumbHtml +
               '<div class="work-overlay"><span class="overlay-label">open ↓</span></div>' +
             '</div>' +
             '<div class="work-info">' +
@@ -108,7 +111,7 @@
           '</div>' +
           '<div class="work-detail">' +
             '<div class="detail-inner">' +
-              (description ? '<div class="detail-text">' + description + '</div>' : '') +
+              (description ? '<div class="detail-text">' + description + '</div>' : '<div class="detail-text" style="color:#999; font-style:italic;">詳細なし</div>') +
               linkHtml +
             '</div>' +
           '</div>';
@@ -134,7 +137,7 @@
       }
     })
     .catch(function(err) {
-      document.getElementById('worksGrid').innerHTML = '<div class="empty-msg">failed to load works.</div>';
+      document.getElementById('worksGrid').innerHTML = '<div class="empty-msg">failed to load.</div>';
       console.error(err);
     });
 
@@ -142,7 +145,7 @@
     btn.addEventListener('click', function() {
       document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
       btn.classList.add('active');
-      var tag = btn.dataset.filter.toLowerCase();
+      var tag = btn.dataset.filter;
       document.querySelectorAll('.work-item').forEach(function(item) {
         var tags = (item.dataset.tags || '').split(',');
         item.dataset.hidden = (tag !== 'all' && !tags.includes(tag)) ? 'true' : 'false';
