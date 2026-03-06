@@ -3,42 +3,65 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>よっと / yoxtellar</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400&display=swap" rel="stylesheet">
+  <title>やましょー / yamashō</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <header>
-      <a class="logo" href="index.html">よっと / yoxtellar</a>
-      <nav>
-            <a href="index.html" id="nav-works">works</a>
-            <a href="profile.html" id="nav-profile">profile</a>
-            <a href="contact.html" id="nav-contact">contact</a>
-      </nav>
+    <a class="logo-wrap" href="index.html">
+      <span class="logo-main">やましょー</span>
+      <span class="logo-sub">composer · educator · yamashō</span>
+    </a>
+    <nav>
+      <a href="index.html" class="active">works</a>
+      <a href="profile.html">profile</a>
+      <a href="contact.html">contact</a>
+    </nav>
   </header>
 
   <main>
-      <div class="filters">
-            <button class="filter-btn active" data-filter="all">all</button>
-            <button class="filter-btn" data-filter="composer">composer</button>
-            <button class="filter-btn" data-filter="live">live</button>
-            <button class="filter-btn" data-filter="release">release</button>
-            <button class="filter-btn" data-filter="engineering">engineering</button>
-            
-            <button class="filter-btn" data-filter="metaverse">metaverse</button>
-            <button class="filter-btn" data-filter="other">other</button>
-      </div>
-      <div class="grid" id="worksGrid"></div>
+    <div class="identity-bar">
+      <span class="id-tag highlight">音楽制作</span>
+      <span class="id-tag highlight">DTMレッスン</span>
+      <span class="id-tag">Unity</span>
+      <span class="id-tag">ITeens Lab</span>
+      <span class="id-tag">体調最高ラジオ</span>
+      <span class="id-tag" style="margin-left:auto; font-style:italic;">→ yoxtellar (music alias)</span>
+    </div>
+
+    <div class="social-bar">
+      <a href="https://x.com/yoxtellar">x / twitter</a>
+      <a href="https://www.instagram.com/yox_life/">instagram</a>
+      <a href="https://soundcloud.com/yoxtellar">soundcloud</a>
+      <a href="https://yot-kun.bandcamp.com/">bandcamp</a>
+      <a href="https://open.spotify.com/intl-ja/artist/5e5zxa27uEOct7mKeixo5d">spotify</a>
+      <a href="https://yot.fanbox.cc/">fanbox</a>
+    </div>
+
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">all</button>
+      <button class="filter-btn" data-filter="composer">composer</button>
+      <button class="filter-btn" data-filter="live">live</button>
+      <button class="filter-btn" data-filter="release">release</button>
+      <button class="filter-btn" data-filter="engineering">engineering</button>
+      <button class="filter-btn" data-filter="metaverse">metaverse</button>
+      <button class="filter-btn" data-filter="other">other</button>
+    </div>
+
+    <div class="grid" id="worksGrid">
+      <div class="empty-msg">loading...</div>
+    </div>
   </main>
 
   <footer>
-      <span>&copy; yoxtellar</span>
-    <div class="social-links">
-        <a href="https://x.com/yoxtellar">x</a>
-        <a href="https://soundcloud.com/yoxtellar">sc</a>
-        <a href="https://yot-kun.bandcamp.com/">bc</a>
-        <a href="https://yot.fanbox.cc/">fb</a>
+    <span>© やましょー / yamashō</span>
+    <div class="footer-links">
+      <a href="https://x.com/yoxtellar">x</a>
+      <a href="https://soundcloud.com/yoxtellar">sc</a>
+      <a href="https://yot-kun.bandcamp.com/">bc</a>
+      <a href="https://yot.fanbox.cc/">fanbox</a>
     </div>
   </footer>
 
@@ -46,97 +69,85 @@
   fetch('works.json')
     .then(function(r) { return r.json(); })
     .then(function(works) {
-        // 1. 日付で新しい順（降順）に並び替え
-        works.sort(function(a, b) {
-            var timeA = a.date ? new Date(a.date.replace(/\./g, '/')).getTime() : 0;
-            var timeB = b.date ? new Date(b.date.replace(/\./g, '/')).getTime() : 0;
-            return timeB - timeA;
+      works = works.filter(function(w) { return w.title; });
+
+      works.sort(function(a, b) {
+        var tA = a.date ? new Date(a.date.replace(/\./g, '/')).getTime() : 0;
+        var tB = b.date ? new Date(b.date.replace(/\./g, '/')).getTime() : 0;
+        return tB - tA;
+      });
+
+      var grid = document.getElementById('worksGrid');
+      grid.innerHTML = '';
+
+      works.forEach(function(w, i) {
+        var rawTags = Array.isArray(w.tag) ? w.tag : (w.tag ? w.tag.split(',') : ['other']);
+        var cleanTags = rawTags.map(function(t) { return t.trim().toLowerCase(); });
+        var tagLabel = cleanTags.map(function(t) { return t.replace('-', ' / '); }).join(', ');
+        var dateHtml = w.date ? '<div class="work-date">' + w.date + '</div>' : '';
+        var defaultImg = 'assets/images/yoxtellar_logo_A_reverse.png';
+        var thumbSrc = w.thumb || defaultImg;
+        var description = w.description || '';
+        var linkHtml = w.url ? '<a href="' + w.url + '" target="_blank" rel="noopener" class="detail-link">view project →</a>' : '';
+
+        var item = document.createElement('div');
+        item.className = 'work-item';
+        item.dataset.tags = cleanTags.join(',');
+        item.style.animationDelay = (i * 0.06 + 0.5) + 's';
+
+        item.innerHTML =
+          '<div class="work-trigger">' +
+            '<div class="thumb-wrap">' +
+              '<img src="' + thumbSrc + '" onerror="this.src=\'' + defaultImg + '\'" alt="' + w.title + '" loading="lazy">' +
+              '<div class="work-overlay"><span class="overlay-label">open ↓</span></div>' +
+            '</div>' +
+            '<div class="work-info">' +
+              '<div class="work-meta"><span class="work-tag">' + tagLabel + '</span>' + dateHtml + '</div>' +
+              '<div class="work-title">' + w.title + '</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="work-detail">' +
+            '<div class="detail-inner">' +
+              (description ? '<div class="detail-text">' + description + '</div>' : '') +
+              linkHtml +
+            '</div>' +
+          '</div>';
+
+        grid.appendChild(item);
+
+        item.querySelector('.work-trigger').addEventListener('click', function() {
+          var isActive = item.classList.contains('is-active');
+          document.querySelectorAll('.work-item').forEach(function(el) {
+            el.classList.remove('is-active');
+          });
+          if (!isActive) {
+            item.classList.add('is-active');
+            setTimeout(function() {
+              item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 350);
+          }
         });
+      });
 
-        var grid = document.getElementById('worksGrid');
-        
-        // 既存の中身を一旦空にする（二重表示防止）
-        grid.innerHTML = '';
-
-        works.forEach(function(w, i) {
-            // タグの処理（複数対応・小文字統一）
-            var rawTags = Array.isArray(w.tag) ? w.tag : (w.tag ? w.tag.split(',') : ['other']);
-            var cleanTags = rawTags.map(function(t) { return t.trim().toLowerCase(); });
-            var tagLabel = cleanTags.map(function(t) { return t.replace('-', ' / '); }).join(', ');
-            
-            var dateHtml = w.date ? `<div class="work-date">${w.date}</div>` : '';
-            var defaultImg = 'assets/images/yoxtellar_logo_A_reverse.png';
-            var thumbSrc = w.thumb ? w.thumb : defaultImg;
-            var description = w.description || 'No description available.';
-            var linkHtml = w.url ? `<a href="${w.url}" target="_blank" rel="noopener" class="detail-link">View Project &rarr;</a>` : '';
-
-            // アイテム要素の作成
-            var item = document.createElement('div');
-            item.className = 'work-item';
-            item.dataset.tags = cleanTags.join(',');
-            
-            // アンビエントな出現ディレイ
-            item.style.animationDelay = (i * 0.15 + 0.8) + 's';
-
-            // 構造を流し込む（閉じタグミスを防ぐバッククォート記法）
-            item.innerHTML = `
-                <div class="work-trigger">
-                    <div class="thumb-wrap">
-                        <img src="${thumbSrc}" onerror="this.src='${defaultImg}'" alt="${w.title}" loading="lazy">
-                        <div class="work-overlay"><span class="overlay-arrow">&darr;</span></div>
-                    </div>
-                    <div class="work-info">
-                        <div class="work-meta"><span class="work-tag">${tagLabel}</span>${dateHtml}</div>
-                        <div class="work-title">${w.title}</div>
-                    </div>
-                </div>
-                <div class="work-detail">
-                    <div class="detail-inner">
-                        <div class="detail-text">${description}</div>
-                        ${linkHtml}
-                    </div>
-                </div>
-            `;
-            
-            grid.appendChild(item);
-
-            // クリックイベント：自分を開き、他を閉じる
-            item.querySelector('.work-trigger').addEventListener('click', function() {
-                var isActive = item.classList.contains('is-active');
-                
-                // 全てのアクティブを解除
-                document.querySelectorAll('.work-item').forEach(function(el) {
-                    el.classList.remove('is-active');
-                });
-                
-                // クリックしたものが閉じていれば開く
-                if (!isActive) {
-                    item.classList.add('is-active');
-                    // 展開を待ってからスクロール
-                    setTimeout(function() {
-                        item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                    }, 400);
-                }
-            });
-        });
+      if (works.length === 0) {
+        grid.innerHTML = '<div class="empty-msg">no works found.</div>';
+      }
     })
     .catch(function(err) {
-        console.error("JSON読み込みエラー:", err);
+      document.getElementById('worksGrid').innerHTML = '<div class="empty-msg">failed to load works.</div>';
+      console.error(err);
     });
 
-  // フィルターボタンの処理
   document.querySelectorAll('.filter-btn').forEach(function(btn) {
     btn.addEventListener('click', function() {
-        document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
-        btn.classList.add('active');
-        
-        var targetTag = btn.dataset.filter.toLowerCase();
-        document.querySelectorAll('.work-item').forEach(function(item) {
-            var itemTags = (item.dataset.tags || "").split(',');
-            item.dataset.hidden = (targetTag !== 'all' && !itemTags.includes(targetTag)) ? 'true' : 'false';
-            // フィルター時はアコーディオンを閉じる
-            item.classList.remove('is-active');
-        });
+      document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      var tag = btn.dataset.filter.toLowerCase();
+      document.querySelectorAll('.work-item').forEach(function(item) {
+        var tags = (item.dataset.tags || '').split(',');
+        item.dataset.hidden = (tag !== 'all' && !tags.includes(tag)) ? 'true' : 'false';
+        item.classList.remove('is-active');
+      });
     });
   });
 </script>

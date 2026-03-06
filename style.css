@@ -1,12 +1,16 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
 :root {
-    --bg: #080808;
-    --fg: #e8e8e8;
-    --muted: #555;
-    --accent: #c8ff00;
-    --border: #1e1e1e;
-    --font-display: 'futura-pt', 'Futura', 'Century Gothic', 'Trebuchet MS', sans-serif;
+    --bg: #f7f5f1;
+    --bg2: #eeebe4;
+    --fg: #111111;
+    --muted: #999;
+    --accent: #e8500a;
+    --accent2: #1a1a1a;
+    --border: #ddd9d1;
+    --font-display: 'Space Mono', 'Courier New', monospace;
     --font-body: 'Noto Sans JP', sans-serif;
 }
 
@@ -14,172 +18,199 @@ html { background: var(--bg); color: var(--fg); font-family: var(--font-display)
 
 body {
     min-height: 100vh;
-    max-width: 1100px;
+    max-width: 1120px;
     margin: 0 auto;
-    padding: 0 32px;
+    padding: 0 36px;
 }
 
-body::before {
+/* Subtle grain overlay */
+body::after {
     content: '';
     position: fixed;
     inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
-    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.03;
     pointer-events: none;
     z-index: 9999;
 }
 
+/* ─── HEADER ──────────────────────────────── */
 header {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     justify-content: space-between;
-    padding: 36px 0 20px;
-    border-bottom: 1px solid var(--border);
+    padding: 32px 0 20px;
+    border-bottom: 2px solid var(--fg);
+    animation: slideDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.logo {
-    font-size: 1.05rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    color: var(--fg);
+.logo-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
     text-decoration: none;
 }
 
-nav { display: flex; gap: 28px; }
+.logo-main {
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--fg);
+    line-height: 1;
+}
+
+.logo-sub {
+    font-size: 0.58rem;
+    font-weight: 400;
+    letter-spacing: 0.25em;
+    color: var(--muted);
+    text-transform: lowercase;
+}
+
+nav { display: flex; gap: 32px; align-items: center; }
 
 nav a {
-    font-size: 0.72rem;
+    font-size: 0.65rem;
     color: var(--muted);
     text-decoration: none;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.2em;
     text-transform: lowercase;
-    transition: color 0.15s;
+    transition: color 0.2s;
+    font-family: var(--font-display);
 }
 
 nav a:hover, nav a.active { color: var(--fg); }
+nav a.active { border-bottom: 1px solid var(--accent); padding-bottom: 2px; }
 
-main { padding-bottom: 80px; }
+main { padding-bottom: 100px; }
 
-/* Filters */
+/* ─── IDENTITY BAR ────────────────────────── */
+.identity-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--border);
+    animation: fadeUp 0.8s 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.id-tag {
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 4px 10px;
+    text-transform: lowercase;
+    background: var(--bg);
+    transition: all 0.2s;
+}
+
+.id-tag.highlight {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: #fef0ea;
+}
+
+.id-tag:hover {
+    border-color: var(--fg);
+    color: var(--fg);
+}
+
+/* ─── SOCIAL LINKS ────────────────────────── */
+.social-bar {
+    display: flex;
+    gap: 16px;
+    padding: 14px 0;
+    animation: fadeUp 0.8s 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.social-bar a {
+    font-size: 0.6rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.15em;
+    text-transform: lowercase;
+    transition: color 0.2s;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 1px;
+}
+
+.social-bar a:hover { color: var(--fg); border-bottom-color: var(--accent); }
+
+/* ─── FILTERS ─────────────────────────────── */
 .filters {
     display: flex;
-    gap: 8px;
-    padding: 28px 0 22px;
+    gap: 6px;
+    padding: 20px 0 16px;
     flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .filter-btn {
     font-family: var(--font-display);
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     letter-spacing: 0.18em;
     text-transform: lowercase;
     border: 1px solid var(--border);
-    background: transparent;
+    background: var(--bg);
     color: var(--muted);
-    padding: 5px 13px;
+    padding: 5px 14px;
     cursor: pointer;
-    transition: all 0.15s;
+    transition: all 0.2s;
 }
 
-.filter-btn:hover, .filter-btn.active {
+.filter-btn:hover {
+    border-color: var(--fg);
+    color: var(--fg);
+    background: var(--bg2);
+}
+
+.filter-btn.active {
     border-color: var(--accent);
     color: var(--accent);
+    background: #fef0ea;
 }
 
-/* Grid */
+/* ─── WORKS GRID ──────────────────────────── */
 .grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2px;
+    gap: 3px;
 }
 
-/* --- レスポンシブ設定（切り替えポイントを早めに変更） --- */
-
-/* 3列 → 2列 になるポイント（1200px以下で切り替え） */
-@media (max-width: 1200px) {
-    .grid { 
-        grid-template-columns: repeat(2, 1fr); 
-    }
-    .work-detail {
-        grid-column: 1 / span 2;
-    }
-}
-
-/* 2列 → 1列 になるポイント（800px以下で切り替え） */
-@media (max-width: 800px) {
-    .grid { 
-        grid-template-columns: 1fr; 
-    }
-    .work-detail {
-        grid-column: 1 / span 1;
-    }
-    
-    /* スマホで見やすくするために余白を少し調整 */
-    .detail-inner {
-        padding: 20px;
-    }
-    .work-title {
-        font-size: 0.9rem;
-    }
-}
-
-/* 変更前 */
-/*
 .work-item {
     overflow: hidden;
-    background: var(--border);
-    animation: fadeIn 0.4s ease both;
-}
-*/
-
-/* 変更後 ▼コピペして上書きしてください▼ */
-.work-item {
-    overflow: hidden;
-    /* 変更前: background: var(--border); */
-    background: var(--bg); /* ここを背景と同じ黒 (#080808) に変更 */
-    animation: fadeIn 2.4s cubic-bezier(0.25, 1, 0.5, 1) both;
+    background: var(--bg);
+    animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .work-item[data-hidden="true"] { display: none; }
 
-.work-item a {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-}
-
-/* 1. 外側の枠：16:9比率を維持。背景を真っ黒にして余白を馴染ませる */
 .thumb-wrap {
     position: relative;
     aspect-ratio: 16/9;
     overflow: hidden;
-    background: #000; 
+    background: var(--bg2);
 }
 
-/* 2. 画像本体：通常は枠いっぱいに表示（cover） */
 .thumb-wrap img {
     width: 100%;
     height: 100%;
-    object-fit: cover; 
+    object-fit: cover;
     display: block;
-    filter: grayscale(20%) brightness(0.85);
-    
-    /* filter や不透明度の変化だけを「ぬるっと」させる */
-    transition: filter 1.2s ease, opacity 1.2s ease;
+    filter: saturate(0.7) brightness(0.95);
+    transition: filter 0.6s ease, object-fit 0s;
 }
 
-/* 3. ホバー時：パキッと全体表示（contain）に切り替える */
 .work-item:hover .thumb-wrap img {
-    filter: grayscale(0%) brightness(1);
-    
-    /* マウスを乗せた瞬間に、どんな比率の画像でも枠内に収まる */
-    object-fit: contain; 
+    filter: saturate(1) brightness(1);
+    object-fit: contain;
 }
 
 .work-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0,0,0,0.5);
+    background: rgba(232, 80, 10, 0.08);
     opacity: 0;
     transition: opacity 0.3s;
     display: flex;
@@ -189,7 +220,15 @@ main { padding-bottom: 80px; }
 
 .work-item:hover .work-overlay { opacity: 1; }
 
-.overlay-arrow { font-size: 1.4rem; color: var(--accent); }
+.overlay-label {
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    text-transform: lowercase;
+    color: var(--fg);
+    background: var(--bg);
+    padding: 6px 14px;
+    border: 1px solid var(--fg);
+}
 
 .work-info {
     padding: 10px 12px 14px;
@@ -205,225 +244,291 @@ main { padding-bottom: 80px; }
 }
 
 .work-tag {
-    font-size: 0.58rem;
+    font-size: 0.55rem;
     letter-spacing: 0.2em;
     text-transform: lowercase;
     color: var(--accent);
+    font-family: var(--font-display);
 }
 
 .work-date {
-    font-size: 0.55rem;
-    letter-spacing: 0.08em;
-    color: #333;
+    font-size: 0.52rem;
+    letter-spacing: 0.05em;
+    color: var(--muted);
     font-family: var(--font-display);
 }
 
 .work-title {
-    font-size: 0.78rem;
-    line-height: 1.5;
+    font-size: 0.76rem;
+    line-height: 1.55;
     font-family: var(--font-body);
     font-weight: 300;
     color: var(--fg);
 }
-/* アコーディオンの土台 */
+
+/* ─── ACCORDION ───────────────────────────── */
+.work-trigger { cursor: pointer; }
+
 .work-detail {
-    /* 修正前: grid-column: 1 / -1; */
-    /* 修正後: グリッドの全範囲をカバーする指定をより安全な書き方に */
-    grid-column: 1 / span 3; 
-    
+    grid-column: 1 / span 3;
     max-height: 0;
     overflow: hidden;
-    background: #0d0d0d;
-    transition: max-height 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    background: var(--bg2);
+    transition: max-height 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* スマホ用（メディアクエリ）の中を修正 */
-@media (max-width: 720px) {
-    .grid { 
-        grid-template-columns: repeat(2, 1fr); 
-    }
-    .work-detail {
-        grid-column: 1 / span 2; /* 2列の時は2列分広がる */
-    }
-}
-
-@media (max-width: 460px) {
-    .grid { 
-        grid-template-columns: 1fr; /* 1列 */
-    }
-    .work-detail {
-        grid-column: 1 / span 1; /* 1列の時は1列分広がる */
-    }
-}
-
-/* 開いた時の状態 */
 .work-item.is-active .work-detail {
-    max-height: 500px; /* 十分な高さに設定 */
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 20px;
+    max-height: 400px;
+    border-bottom: 2px solid var(--fg);
+    margin-bottom: 16px;
 }
 
 .detail-inner {
-    padding: 30px;
+    padding: 28px 32px;
     font-family: var(--font-body);
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
 }
 
 .detail-text {
+    flex: 1;
     font-size: 0.85rem;
-    line-height: 1.8;
-    color: #ccc;
-    margin-bottom: 20px;
+    line-height: 1.85;
+    color: #444;
 }
 
 .detail-link {
-    display: inline-block;
-    color: var(--accent);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--bg);
+    background: var(--fg);
     text-decoration: none;
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-    border: 1px solid var(--accent);
-    padding: 8px 20px;
-    transition: all 0.3s;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    padding: 10px 22px;
+    transition: all 0.2s;
+    white-space: nowrap;
+    font-family: var(--font-display);
+    margin-top: 4px;
 }
 
 .detail-link:hover {
     background: var(--accent);
-    color: #000;
 }
 
-/* クリックできることを示すカーソル */
-.work-trigger { cursor: pointer; }
-
-/* Profile */
-.about-section {
-    padding: 60px 0;
-    max-width: 560px;
-    animation: fadeIn 2.4s cubic-bezier(0.25, 1, 0.5, 1) both;
+/* ─── PROFILE ─────────────────────────────── */
+.profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    padding: 50px 0;
+    animation: fadeUp 0.8s 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.about-name {
-    font-size: 1.5rem;
+.profile-left .p-name {
+    font-size: 2.2rem;
     font-weight: 700;
-    letter-spacing: 0.06em;
-    margin-bottom: 6px;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    margin-bottom: 4px;
 }
 
-.about-kana {
+.profile-left .p-kana {
     font-family: var(--font-body);
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     color: var(--muted);
+    margin-bottom: 24px;
+}
+
+.profile-left .p-alias {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    border-left: 2px solid var(--accent);
+    padding-left: 12px;
     margin-bottom: 28px;
 }
 
-.about-roles {
+.role-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 6px;
     margin-bottom: 28px;
 }
 
 .role-tag {
-    font-size: 0.64rem;
-    letter-spacing: 0.1em;
-    border: 1px solid var(--muted);
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    border: 1px solid var(--border);
     color: var(--muted);
-    padding: 4px 11px;
+    padding: 4px 12px;
     text-transform: lowercase;
+    background: var(--bg);
 }
 
-.about-text {
+.role-tag.featured {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: #fef0ea;
+}
+
+.p-bio {
     font-family: var(--font-body);
     font-size: 0.85rem;
-    line-height: 1.9;
-    color: #aaa;
+    line-height: 1.95;
+    color: #555;
 }
 
-/* Contact */
+.profile-right .section-label {
+    font-size: 0.58rem;
+    letter-spacing: 0.28em;
+    text-transform: lowercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+}
+
+.activity-list {
+    list-style: none;
+    margin-bottom: 36px;
+}
+
+.activity-list li {
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    line-height: 1;
+    color: var(--fg);
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.activity-list li span {
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    font-family: var(--font-display);
+}
+
+/* ─── CONTACT ─────────────────────────────── */
 .contact-section {
     padding: 60px 0;
-    max-width: 480px;
-    animation: fadeIn 2.4s cubic-bezier(0.25, 1, 0.5, 1) both;
+    max-width: 520px;
+    animation: fadeUp 0.8s 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .contact-label {
-    font-size: 0.62rem;
-    letter-spacing: 0.18em;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
     color: var(--muted);
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     text-transform: lowercase;
 }
 
 .contact-email {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     color: var(--fg);
     text-decoration: none;
-    border-bottom: 1px solid var(--accent);
-    padding-bottom: 2px;
-    transition: color 0.15s;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 4px;
+    transition: color 0.2s;
+    display: inline-block;
+    margin-bottom: 40px;
 }
 
 .contact-email:hover { color: var(--accent); }
 
-.social-links { display: flex; gap: 20px; }
+.contact-social {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
 
-.social-links a {
+.contact-social a {
     font-size: 0.62rem;
     color: var(--muted);
     text-decoration: none;
-    letter-spacing: 0.1em;
-    transition: color 0.15s;
+    letter-spacing: 0.15em;
+    text-transform: lowercase;
+    transition: color 0.2s;
+    padding-bottom: 2px;
+    border-bottom: 1px solid transparent;
 }
 
-.social-links a:hover { color: var(--accent); }
+.contact-social a:hover {
+    color: var(--fg);
+    border-bottom-color: var(--accent);
+}
 
-/* Footer */
+/* ─── FOOTER ──────────────────────────────── */
 footer {
-    border-top: 1px solid var(--border);
+    border-top: 2px solid var(--fg);
     padding: 20px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    animation: fadeUp 0.8s 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 footer span {
-    font-size: 0.62rem;
+    font-size: 0.58rem;
     color: var(--muted);
-    letter-spacing: 0.1em;
-}
-/* サイト全体のアンビエント出現演出 */
-header {
-    animation: fadeIn 2.4s cubic-bezier(0.25, 1, 0.5, 1) both;
-    animation-delay: 0.1s; /* 開いてすぐにフワッと */
+    letter-spacing: 0.12em;
 }
 
-.filters {
-    animation: fadeIn 2.4s cubic-bezier(0.25, 1, 0.5, 1) both;
-    animation-delay: 0.5s; /* ヘッダーの少し後にフワッと */
+.footer-links {
+    display: flex;
+    gap: 20px;
 }
 
-footer {
-    animation: fadeIn 2.4s cubic-bezier(0.25, 1, 0.5, 1) both;
-    animation-delay: 1.0s; /* 一番最後にフワッと */
+.footer-links a {
+    font-size: 0.58rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.12em;
+    transition: color 0.2s;
 }
 
-/* 変更前 */
-/*
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
+.footer-links a:hover { color: var(--fg); }
+
+/* ─── NO CONTENT MSG ──────────────────────── */
+.empty-msg {
+    grid-column: 1 / -1;
+    padding: 60px 0;
+    text-align: center;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+}
+
+/* ─── ANIMATIONS ──────────────────────────── */
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-12px); }
     to { opacity: 1; transform: translateY(0); }
 }
-*/
 
-/* 変更後 ▼コピペして上書きしてください▼ */
-@keyframes fadeIn {
-    from { 
-        opacity: 0; 
-        transform: translateY(20px); /* 8pxから20pxに変更して、少し下から浮かび上がらせる */
-        filter: blur(4px); /* (おまけ) ほんの少しだけボケからピントが合う演出を追加 */
-    }
-    to { 
-        opacity: 1; 
-        transform: translateY(0); 
-        filter: blur(0);
-    }
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); filter: blur(3px); }
+    to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+/* ─── RESPONSIVE ──────────────────────────── */
+@media (max-width: 1100px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }
+    .work-detail { grid-column: 1 / span 2; }
+    .profile-grid { grid-template-columns: 1fr; gap: 40px; }
+}
+
+@media (max-width: 640px) {
+    body { padding: 0 20px; }
+    .grid { grid-template-columns: 1fr; }
+    .work-detail { grid-column: 1 / span 1; }
+    .detail-inner { flex-direction: column; padding: 20px; }
+    .logo-main { font-size: 0.95rem; }
+    nav { gap: 20px; }
 }
