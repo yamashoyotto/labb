@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>やましょー / yamashō</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ─── SECTION LAYOUT ──────────────────────── */
+    .section-wrap {
+      padding: 56px 0 0;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 20px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid var(--fg);
+      margin-bottom: 4px;
+    }
+
+    .section-num {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      min-width: 28px;
+    }
+
+    .section-title-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+    }
+
+    .section-en {
+      font-family: var(--font-sans);
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--fg);
+      line-height: 1;
+    }
+
+    .section-ja {
+      font-family: var(--font-jp);
+      font-size: 0.875rem;
+      color: var(--muted);
+    }
+
+    /* ─── ACCORDION ───────────────────────────── */
+    .accordion-item {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .acc-trigger {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 20px 12px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      color: var(--fg);
+      border-radius: var(--radius);
+      transition: background 0.15s;
+    }
+
+    .acc-trigger:hover {
+      background: var(--bg-sub);
+    }
+
+    .acc-left {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .acc-tag {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+    }
+
+    .acc-title {
+      font-family: var(--font-jp);
+      font-size: 1.0625rem;
+      font-weight: 500;
+      line-height: 1.5;
+      color: var(--fg);
+    }
+
+    .acc-icon {
+      font-family: var(--font-sans);
+      font-size: 1.375rem;
+      font-weight: 400;
+      color: var(--muted);
+      flex-shrink: 0;
+      transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
+      line-height: 1;
+      width: 28px;
+      text-align: center;
+    }
+
+    .accordion-item.open .acc-icon {
+      transform: rotate(45deg);
+      color: var(--accent);
+    }
+
+    .acc-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .accordion-item.open .acc-body {
+      max-height: 800px;
+    }
+
+    .acc-content {
+      padding: 0 12px 28px 12px;
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+    }
+
+    .acc-text {
+      flex: 1;
+      font-family: var(--font-jp);
+      font-size: 0.9375rem;
+      line-height: 1.9;
+      color: var(--fg-sub);
+      white-space: pre-line;
+    }
+
+    .acc-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex-shrink: 0;
+      min-width: 160px;
+    }
+
+    .acc-links a {
+      font-family: var(--font-jp);
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--accent);
+      border: 1.5px solid var(--accent);
+      padding: 8px 16px;
+      border-radius: var(--radius);
+      text-align: center;
+      transition: all 0.15s;
+      text-decoration: none;
+    }
+
+    .acc-links a:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    /* ─── HERO AREA ───────────────────────────── */
+    .hero {
+      padding: 48px 0 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-name {
+      font-family: var(--font-jp);
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+
+    .hero-name-en {
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      margin-bottom: 20px;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .hero-social {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    .hero-social a {
+      font-family: var(--font-sans);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 5px 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 100px;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+
+    .hero-social a:hover {
+      border-color: var(--fg);
+      color: var(--fg);
+      background: var(--bg-sub);
+    }
+
+    /* ─── SECTION NAV ─────────────────────────── */
+    .section-nav {
+      display: flex;
+      gap: 6px;
+      padding: 20px 0 0;
+      flex-wrap: wrap;
+    }
+
+    .section-nav a {
+      font-family: var(--font-jp);
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--fg-sub);
+      padding: 7px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 100px;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+
+    .section-nav a:hover {
+      border-color: var(--fg);
+      color: var(--fg);
+      background: var(--bg-sub);
+    }
+
+    /* ─── RESPONSIVE ──────────────────────────── */
+    @media (max-width: 640px) {
+      .acc-content { flex-direction: column; gap: 20px; }
+      .acc-links { min-width: unset; width: 100%; }
+      .section-en { font-size: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a class="logo-wrap" href="index.html">
+    <span class="logo-main">やましょー</span>
+    <span class="logo-sub">yamashō — composer · educator</span>
+  </a>
+  <nav>
+    <a href="index.html" class="active">works</a>
+    <a href="profile.html">profile</a>
+    <a href="purpose.html">my purpose</a>
+    <a href="contact.html">contact</a>
+  </nav>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-name">やましょー</div>
+    <div class="hero-name-en">yamashō / Shota Yamamoto</div>
+    <div class="hero-tags">
+      <span class="id-tag highlight">音楽制作</span>
+      <span class="id-tag highlight">DTMレッスン</span>
+      <span class="id-tag">Unity / Blender 指導</span>
+      <span class="id-tag">ITeens Lab</span>
+      <span class="id-tag">コテンラジオ</span>
+      <span class="id-tag" style="font-size:0.75rem; color:var(--muted); border-color:var(--border);">music alias → yoxtellar</span>
+    </div>
+    <div class="section-nav">
+      <a href="#music">🎵 音楽</a>
+      <a href="#education">📚 教育</a>
+      <a href="#edit">✂️ 編集・制作</a>
+    </div>
+    <div class="hero-social">
+      <a href="https://x.com/yoxtellar" target="_blank">X / Twitter</a>
+      <a href="https://www.instagram.com/yox_life/" target="_blank">Instagram</a>
+      <a href="https://soundcloud.com/yoxtellar" target="_blank">SoundCloud</a>
+      <a href="https://yot-kun.bandcamp.com/" target="_blank">Bandcamp</a>
+      <a href="https://open.spotify.com/intl-ja/artist/5e5zxa27uEOct7mKeixo5d" target="_blank">Spotify</a>
+      <a href="https://yot.fanbox.cc/" target="_blank">Fanbox</a>
+    </div>
+  </div>
+
+  <!-- ─── 01 MUSIC ──────────────────────────── -->
+  <div class="section-wrap" id="music">
+    <div class="section-header">
+      <div class="section-num">01</div>
+      <div class="section-title-wrap">
+        <div class="section-en">MUSIC</div>
+        <div class="section-ja">音楽</div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="acc-trigger" onclick="toggle(this)">
+        <div class="acc-left">
+          <div class="acc-tag">Composer / Ambient</div>
+          <div class="acc-title">メタバースの音楽家「よっと / yoxtellar」</div>
+        </div>
+        <span class="acc-icon">+</span>
+      </button>
+      <div class="acc-body">
+        <div class="acc-content">
+          <div class="acc-text">2017年より活動を開始した音楽プロジェクト。IDMやElectronicaを中心に制作し、自主制作アルバムを毎年リリース。これまでにバンクーバー・アムステルダム等海外でのライブ出演、2020以降VRChatでのライブがメイン。
+
+・SanrioVFes 2023「はじまりはおわり、feat.kinu」の楽曲制作を担当。
+・SanrioVFes 2024 Summer 新作ミニパレード「Musical Treasure Hunt – Spectral Remix」の作曲・サウンドデザイン。
+・SanrioVFes 2025 VTuberキヌの新作ショー「トーチライト」にて楽曲制作を担当。イギリスの国際映画祭『Raindance Immersive 2025』にて、BEST MUSIC SHOWを受賞。
+・大阪・関西万博 EXPOホール「シャインハット」投影用アンビエント作品、こみゃくシミュレーションの映像で音楽を担当。</div>
+          <div class="acc-links">
+            <a href="profile.html">ポートフォリオ</a>
+            <a href="https://open.spotify.com/intl-ja/artist/5e5zxa27uEOct7mKeixo5d" target="_blank">Spotify</a>
+            <a href="https://yot-kun.bandcamp.com/" target="_blank">Bandcamp</a>
+            <a href="https://soundcloud.com/yoxtellar" target="_blank">SoundCloud</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="acc-trigger" onclick="toggle(this)">
+        <div class="acc-left">
+          <div class="acc-tag">Community / VRChat</div>
+          <div class="acc-title">VR DTM Community "SoundGeek"</div>
+        </div>
+        <span class="acc-icon">+</span>
+      </button>
+      <div class="acc-body">
+        <div class="acc-content">
+          <div class="acc-text">VRChatにて音楽制作者コミュニティ活動を展開しています。
+音楽制作の楽しさを共有し、創造的な交流を深める場となっています。
+VRChat特有のアバターコミュニケーションを通して年齢や経歴関係なく交流しています。
+
+これまでやった企画
+・DTM Lighitning Talk会
+・音素材共有コンピレーションアルバム制作
+・DTM初心者講座
+・DTMお悩み相談会
+・SG版新作発表会（一人ずつ新曲を発表する会）
+・リレー作曲企画
+・10分DTMチャレンジ回</div>
+          <div class="acc-links">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="acc-trigger" onclick="toggle(this)">
+        <div class="acc-left">
+          <div class="acc-tag">Ambient Live / Performance</div>
+          <div class="acc-title">確率生成アンビエントライブ「shota_yamamoto」</div>
+        </div>
+        <span class="acc-icon">+</span>
+      </button>
+      <div class="acc-body">
+        <div class="acc-content">
+          <div class="acc-text">自然環境音と、確率的に生成される電子音を組み合わせて空間を形づくるアンビエントライブプロジェクトです。
+電子音は特定のノートを手で置かず、確率的な生成アルゴリズムのみで構成するという制約を設けています。
+ライブでは人為的な演奏性を抑え、自然音と生成音がゆるやかに"融合"し、場そのものが変化していくような音響体験を作ります。</div>
+          <div class="acc-links">
+            <a href="https://www.instagram.com/p/DPoOY-Tj89d/" target="_blank">土とアンビエント（主催）</a>
+            <a href="https://www.instagram.com/p/C0aHBU9SCmA/" target="_blank">茶と間（出演）</a>
+            <a href="https://distrokid.com/hyperfollow/shotayamamoto/customverge1" target="_blank">各種ストリーミング</a>
+            <a href="https://soundcloud.com/shota_yamamoto" target="_blank">SoundCloud</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="acc-trigger" onclick="toggle(this)">
+        <div class="acc-left">
+          <div class="acc-tag">Event / Hackathon</div>
+          <div class="acc-title">ミュージックハッカソン in いいかねPalette</div>
+        </div>
+        <span class="acc-icon">+</span>
+      </button>
+      <div class="acc-body">
+        <div class="acc-content">
+          <div class="acc-text">一泊二日で音楽を作るDTMの合宿イベントです。
+福岡県田川市にあるいいかねPaletteで開催しています。</div>
+          <div class="acc-links">
+            <a href="https://music-hack.pages.dev/" target="_blank">公式サイト</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── 02 EDUCATION ──────────────────────── -->
+  <div class="section-wrap" id="education">
+    <div class="section-header">
+      <div class="section-num">02</div>
+      <div class="section-title-wrap">
+        <div class="section-en">EDUCATION</div>
+        <div class="section-ja">教育</div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="acc-trigger" onclick="toggle(this)">
+        <div class="acc-left">
+          <div class="acc-tag">IT School</div>
+          <div class="acc-title">次世代型ITスクール ITeens Lab　講師</div>
+        </div>
+        <span class="acc-icon">+</span>
+      </button>
+      <div class="acc-body">
+        <div class="acc-content">
+          <div class="acc-text">小〜高校生向けオンラインITスクールで、Unity / Blender / 音楽制作のクラスを担当しています。
+
+「つくるって楽しい！」という気持ちを、みんなと分かち合えたらと思い、活動しています。</div>
+          <div class="acc-links">
+            <a href="https://iteenslab.com/about/staff/" target="_blank">ITeens Lab 公式サイト</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="acc-trigger" onclick="toggle(this)">
+        <div class="acc-left">
+          <div class="acc-tag">Online Lesson</div>
+          <div class="acc-title">よっとのDTM教室（音楽制作オンラインレッスン）</div>
+        </div>
+        <span class="acc-icon">+</span>
+      </button>
+      <div class="acc-body">
+        <div class="acc-content">
+          <div class="acc-text">現役の音楽制作者（トラックメイカー）であり、子ども向けITスクールの講師でもある「よっと / yoxtellar」が教える、オンラインの初心者向けDTM教室です。
+
+音楽理論からではなく、音を素材として集め、コラージュのように編集することを中心に、音楽制作の方法を学びます。
+
+そのため、楽器を演奏できなくても音楽を作ることが可能です。</div>
+          <div class="acc-links">
+            <a href="https://yoxtellardtm.studio.site/" target="_blank">公式サイト</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="acc-trigger" onclick="toggle(this)">
+        <div class="acc-left">
+          <div class="acc-tag">AO / University</div>
+          <div class="acc-title">受験マネジメントサロン Biden　特別講師</div>
+        </div>
+        <span class="acc-icon">+</span>
+      </button>
+      <div class="acc-body">
+        <div class="acc-content">
+          <div class="acc-text">最新の「総合型選抜（旧AO）入試・学校推薦型選抜入試」に特化した、受験生活を24時間フルでサポートする完全オーダーメイド型プロジェクト「Biden」で特別講師・サイト運営者としてお手伝いしています。
+
+IT創作伴走支援：UnityやBlenderを用いたゲーム制作、AIの活用、音楽制作、メタバースを含むIT系創作活動において、生徒一人ひとりの興味や課題に寄り添いながら、技術面・発想面の両面で伴走支援を行っています。
+
+対話式のキャリア授業：学校や課外活動についてレポートを書いてもらい、それについて対話を重ねながら深く掘り下げ、自分らしいキャリアの方向性を一緒に見つけていく授業を行っています。</div>
+          <div class="acc-links">
+            <a href="https://xn--3jsv89a8qjoz7a.com/member/" target="_blank">Biden 公式サイト</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── 03 EDIT ──────────────────────────── -->
+  <div class="section-wrap" id="edit">
+    <div class="section-header">
+      <div class="section-num">03</div>
+      <div class="section-title-wrap">
+        <div class="section-en">EDIT</div>
+        <div class="section-ja">編集・制作</div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="acc-trigger" onclick="toggle(this)">
+        <div class="acc-left">
+          <div class="acc-tag">YouTube / Design</div>
+          <div class="acc-title">「歴史を面白く学ぶコテンラジオ」サムネイル制作担当</div>
+        </div>
+        <span class="acc-icon">+</span>
+      </button>
+      <div class="acc-body">
+        <div class="acc-content">
+          <div class="acc-text">2020年6月からYoutubeサムネイル制作を担当（モンゴル編以降）
+
+自分自身もコテンラジオを通じて、知識や価値観の面で多くの助けをいただいており、この気持ちが原動力となって楽しみながら制作を続けています。</div>
+          <div class="acc-links">
+            <a href="https://www.youtube.com/@cotenradio/videos" target="_blank">YouTubeリンク</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="acc-trigger" onclick="toggle(this)">
+        <div class="acc-left">
+          <div class="acc-tag">Podcast / Audio</div>
+          <div class="acc-title">Podcast「新型オトナウィルス」音声編集担当</div>
+        </div>
+        <span class="acc-icon">+</span>
+      </button>
+      <div class="acc-body">
+        <div class="acc-content">
+          <div class="acc-text">「新型オトナウィルス」音声編集を担当
+いいかねPalette会長の樋口さんと、ITeensLabの代表の古林さんが二人で話したりゲストを招いて色々お話するインターネットラジオです。</div>
+          <div class="acc-links">
+            <a href="https://podcasters.spotify.com/pod/show/otonavirus" target="_blank">Spotify</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <span>© やましょー / yamashō</span>
+  <div class="footer-links">
+    <a href="https://x.com/yoxtellar">Twitter</a>
+    <a href="https://soundcloud.com/yoxtellar">SoundCloud</a>
+    <a href="https://yot-kun.bandcamp.com/">Bandcamp</a>
+    <a href="https://yot.fanbox.cc/">Fanbox</a>
+  </div>
+</footer>
+
+<script>
+  function toggle(btn) {
+    const item = btn.closest('.accordion-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.accordion-item').forEach(function(s) {
+      s.classList.remove('open');
+    });
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // スクロールアニメーション
+  const obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.05 });
+
+  document.querySelectorAll('.section-wrap, .accordion-item').forEach(function(el) {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(16px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    obs.observe(el);
+  });
+</script>
+</body>
+</html>
