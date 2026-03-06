@@ -1,0 +1,429 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --bg: #080808;
+    --fg: #e8e8e8;
+    --muted: #555;
+    --accent: #c8ff00;
+    --border: #1e1e1e;
+    --font-display: 'futura-pt', 'Futura', 'Century Gothic', 'Trebuchet MS', sans-serif;
+    --font-body: 'Noto Sans JP', sans-serif;
+}
+
+html { background: var(--bg); color: var(--fg); font-family: var(--font-display); }
+
+body {
+    min-height: 100vh;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 32px;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.025;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 36px 0 20px;
+    border-bottom: 1px solid var(--border);
+}
+
+.logo {
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--fg);
+    text-decoration: none;
+}
+
+nav { display: flex; gap: 28px; }
+
+nav a {
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.18em;
+    text-transform: lowercase;
+    transition: color 0.15s;
+}
+
+nav a:hover, nav a.active { color: var(--fg); }
+
+main { padding-bottom: 80px; }
+
+/* Filters */
+.filters {
+    display: flex;
+    gap: 8px;
+    padding: 28px 0 22px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    font-family: var(--font-display);
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: lowercase;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    padding: 5px 13px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.filter-btn:hover, .filter-btn.active {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+/* Grid */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+}
+
+/* --- レスポンシブ設定（切り替えポイントを早めに変更） --- */
+
+/* 3列 → 2列 になるポイント（1200px以下で切り替え） */
+@media (max-width: 1200px) {
+    .grid { 
+        grid-template-columns: repeat(2, 1fr); 
+    }
+    .work-detail {
+        grid-column: 1 / span 2;
+    }
+}
+
+/* 2列 → 1列 になるポイント（800px以下で切り替え） */
+@media (max-width: 800px) {
+    .grid { 
+        grid-template-columns: 1fr; 
+    }
+    .work-detail {
+        grid-column: 1 / span 1;
+    }
+    
+    /* スマホで見やすくするために余白を少し調整 */
+    .detail-inner {
+        padding: 20px;
+    }
+    .work-title {
+        font-size: 0.9rem;
+    }
+}
+
+/* 変更前 */
+/*
+.work-item {
+    overflow: hidden;
+    background: var(--border);
+    animation: fadeIn 0.4s ease both;
+}
+*/
+
+/* 変更後 ▼コピペして上書きしてください▼ */
+.work-item {
+    overflow: hidden;
+    /* 変更前: background: var(--border); */
+    background: var(--bg); /* ここを背景と同じ黒 (#080808) に変更 */
+    animation: fadeIn 2.4s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+
+.work-item[data-hidden="true"] { display: none; }
+
+.work-item a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+/* 1. 外側の枠：16:9比率を維持。背景を真っ黒にして余白を馴染ませる */
+.thumb-wrap {
+    position: relative;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    background: #000; 
+}
+
+/* 2. 画像本体：通常は枠いっぱいに表示（cover） */
+.thumb-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    display: block;
+    filter: grayscale(20%) brightness(0.85);
+    
+    /* filter や不透明度の変化だけを「ぬるっと」させる */
+    transition: filter 1.2s ease, opacity 1.2s ease;
+}
+
+/* 3. ホバー時：パキッと全体表示（contain）に切り替える */
+.work-item:hover .thumb-wrap img {
+    filter: grayscale(0%) brightness(1);
+    
+    /* マウスを乗せた瞬間に、どんな比率の画像でも枠内に収まる */
+    object-fit: contain; 
+}
+
+.work-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    opacity: 0;
+    transition: opacity 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.work-item:hover .work-overlay { opacity: 1; }
+
+.overlay-arrow { font-size: 1.4rem; color: var(--accent); }
+
+.work-info {
+    padding: 10px 12px 14px;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+}
+
+.work-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.work-tag {
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    text-transform: lowercase;
+    color: var(--accent);
+}
+
+.work-date {
+    font-size: 0.55rem;
+    letter-spacing: 0.08em;
+    color: #333;
+    font-family: var(--font-display);
+}
+
+.work-title {
+    font-size: 0.78rem;
+    line-height: 1.5;
+    font-family: var(--font-body);
+    font-weight: 300;
+    color: var(--fg);
+}
+/* アコーディオンの土台 */
+.work-detail {
+    /* 修正前: grid-column: 1 / -1; */
+    /* 修正後: グリッドの全範囲をカバーする指定をより安全な書き方に */
+    grid-column: 1 / span 3; 
+    
+    max-height: 0;
+    overflow: hidden;
+    background: #0d0d0d;
+    transition: max-height 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* スマホ用（メディアクエリ）の中を修正 */
+@media (max-width: 720px) {
+    .grid { 
+        grid-template-columns: repeat(2, 1fr); 
+    }
+    .work-detail {
+        grid-column: 1 / span 2; /* 2列の時は2列分広がる */
+    }
+}
+
+@media (max-width: 460px) {
+    .grid { 
+        grid-template-columns: 1fr; /* 1列 */
+    }
+    .work-detail {
+        grid-column: 1 / span 1; /* 1列の時は1列分広がる */
+    }
+}
+
+/* 開いた時の状態 */
+.work-item.is-active .work-detail {
+    max-height: 500px; /* 十分な高さに設定 */
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 20px;
+}
+
+.detail-inner {
+    padding: 30px;
+    font-family: var(--font-body);
+}
+
+.detail-text {
+    font-size: 0.85rem;
+    line-height: 1.8;
+    color: #ccc;
+    margin-bottom: 20px;
+}
+
+.detail-link {
+    display: inline-block;
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    border: 1px solid var(--accent);
+    padding: 8px 20px;
+    transition: all 0.3s;
+}
+
+.detail-link:hover {
+    background: var(--accent);
+    color: #000;
+}
+
+/* クリックできることを示すカーソル */
+.work-trigger { cursor: pointer; }
+
+/* Profile */
+.about-section {
+    padding: 60px 0;
+    max-width: 560px;
+    animation: fadeIn 2.4s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+
+.about-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    margin-bottom: 6px;
+}
+
+.about-kana {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 28px;
+}
+
+.about-roles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 28px;
+}
+
+.role-tag {
+    font-size: 0.64rem;
+    letter-spacing: 0.1em;
+    border: 1px solid var(--muted);
+    color: var(--muted);
+    padding: 4px 11px;
+    text-transform: lowercase;
+}
+
+.about-text {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    line-height: 1.9;
+    color: #aaa;
+}
+
+/* Contact */
+.contact-section {
+    padding: 60px 0;
+    max-width: 480px;
+    animation: fadeIn 2.4s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+
+.contact-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+    margin-bottom: 10px;
+    text-transform: lowercase;
+}
+
+.contact-email {
+    font-size: 1.1rem;
+    color: var(--fg);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 2px;
+    transition: color 0.15s;
+}
+
+.contact-email:hover { color: var(--accent); }
+
+.social-links { display: flex; gap: 20px; }
+
+.social-links a {
+    font-size: 0.62rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    transition: color 0.15s;
+}
+
+.social-links a:hover { color: var(--accent); }
+
+/* Footer */
+footer {
+    border-top: 1px solid var(--border);
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+footer span {
+    font-size: 0.62rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+}
+/* サイト全体のアンビエント出現演出 */
+header {
+    animation: fadeIn 2.4s cubic-bezier(0.25, 1, 0.5, 1) both;
+    animation-delay: 0.1s; /* 開いてすぐにフワッと */
+}
+
+.filters {
+    animation: fadeIn 2.4s cubic-bezier(0.25, 1, 0.5, 1) both;
+    animation-delay: 0.5s; /* ヘッダーの少し後にフワッと */
+}
+
+footer {
+    animation: fadeIn 2.4s cubic-bezier(0.25, 1, 0.5, 1) both;
+    animation-delay: 1.0s; /* 一番最後にフワッと */
+}
+
+/* 変更前 */
+/*
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+*/
+
+/* 変更後 ▼コピペして上書きしてください▼ */
+@keyframes fadeIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(20px); /* 8pxから20pxに変更して、少し下から浮かび上がらせる */
+        filter: blur(4px); /* (おまけ) ほんの少しだけボケからピントが合う演出を追加 */
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+        filter: blur(0);
+    }
+}
