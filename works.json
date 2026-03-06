@@ -1,165 +1,20 @@
 [
     {
-        "title": "大阪・関西万博 EXPOホール「シャインハット」投影用アンビエント作品 / こみゃくシミュレーション映像",
-        "tag": "音楽",
-        "thumb": "assets/images/expo.png",
-        "url": "https://x.com/lucknknock/status/1953773309708935658?s=20",
-        "date": "2025.8",
-        "description": "大阪・関西万博 EXPOホール「シャインハット」の投影映像向けに制作した、10分を超えるアンビエント音響作品。空間の広がりを意識したレイヤーの重なりと、生命の循環を感じさせる『こみゃくシミュレーション』に同期した動的な音響演出。"
-    },
-    {
-        "title": "土とアンビエント — 旧八女郡役所にて主催 / 確率生成アンビエントライブ「shota_yamamoto」",
+        "title": "メタバースの音楽家「yoxtellar」",
         "tag": "音楽",
         "thumb": "",
         "url": "",
-        "date": "2025.11",
-        "description": "旧八女郡役所にて「土とアンビエント」を主催。自然環境音と確率的に生成される電子音を組み合わせて空間を形づくるアンビエントライブプロジェクト「shota_yamamoto」として出演。電子音は特定のノートを手で置かず、確率的な生成アルゴリズムのみで構成するという制約のもと、人為的な演奏性を抑え、自然音と生成音がゆるやかに"融合"し、場そのものが変化していくような音響体験を作る。"
-    },
-    {
-        "title": "SanrioVFes 2025 — キヌ「トーチライト」楽曲制作・ミックス・マスタリング・サウンドデザイン",
-        "tag": "音楽",
-        "thumb": "assets/images/sanrio2025.jpg",
-        "url": "",
-        "date": "2025.3",
-        "description": "SANRIO Virtual Festival 2025にて開催されたVTuberキヌの新作ショー「トーチライト」にて楽曲制作を担当。イギリスの国際映画祭『Raindance Immersive 2025』にてBEST MUSIC SHOWを受賞。深淵から希望へと向かう力強いサウンドデザインを目指した。"
-    },
-    {
-        "title": "トーチライト feat.kinu — シングルリリース",
-        "tag": "音楽",
-        "thumb": "https://f4.bcbits.com/img/a1605349625_10.jpg",
-        "url": "https://yot-kun.bandcamp.com/album/feat-kinu-2",
-        "date": "2025.6",
-        "description": "SanrioVFes2025のために制作した「トーチライト」をシングルとしてリリース。Raindance Immersive 2025 BEST MUSIC SHOW受賞作品。"
-    },
-    {
-        "title": "Musical Treasure Hunt — Spectral Remix / 新作サンリオキャラクターミニパレード 作曲・サウンドデザイン",
-        "tag": "音楽",
-        "thumb": "assets/images/sanrio2024.jpg",
-        "url": "",
-        "date": "2024.9",
-        "description": "SanrioVFes 2024 Summer 新作ミニパレード「Musical Treasure Hunt – Spectral Remix」の作曲・サウンドデザインを担当。"
-    },
-    {
-        "title": "solitary departure",
-        "tag": "音楽",
-        "thumb": "https://i1.sndcdn.com/artworks-P9kPR9mjLOL0iJDt-ktk4vA-t1080x1080.jpg",
-        "url": "https://soundcloud.com/yoxtellar/solitary-departure",
-        "date": "2024.12"
-    },
-    {
-        "title": "our intelligence 3 release party 出演@新宿SPACE",
-        "tag": "音楽",
-        "thumb": "assets/images/oi3r.png",
-        "url": "",
-        "date": "2024.11"
-    },
-    {
-        "title": "ASTRA4 出演@VRChat",
-        "tag": "音楽",
-        "thumb": "assets/images/astr4.jpg",
-        "url": "",
-        "date": "2024.4"
-    },
-    {
-        "title": "VR DTM Community \"SoundGeek\" 主催",
-        "tag": "音楽",
-        "thumb": "",
-        "url": "",
-        "date": "2023",
-        "description": "VRChatにて音楽制作者コミュニティ活動を展開。音楽制作の楽しさを共有し、創造的な交流を深める場。DTM Lightning Talk会、音素材共有コンピレーションアルバム制作、DTM初心者講座、10分DTMチャレンジ回 などの企画を実施。"
-    },
-    {
-        "title": "Glitch Jazz in VRC — Glitch Live PAを担当@VRChat",
-        "tag": "音楽",
-        "thumb": "assets/images/gj.jpg",
-        "url": "",
-        "date": "2023.11"
-    },
-    {
-        "title": "SanrioVFes 2023 — キヌ「はじまりはおわり、feat.kinu」楽曲制作",
-        "tag": "音楽",
-        "thumb": "https://img.youtube.com/vi/LwDbrmUhdN0/maxresdefault.jpg",
-        "url": "https://youtu.be/LwDbrmUhdN0",
-        "date": "2023.1",
-        "description": "SanrioVFes 2023にてVTuberキヌのパフォーマンス「はじまりはおわり、feat.kinu」の楽曲制作・ミックス・マスタリング・サウンドデザインを担当。"
-    },
-    {
-        "title": "emergence!",
-        "tag": "音楽",
-        "thumb": "https://img.youtube.com/vi/JNLpsOv8GI8/maxresdefault.jpg",
-        "url": "https://youtu.be/JNLpsOv8GI8",
-        "date": "2023.10"
-    },
-    {
-        "title": "wisteria",
-        "tag": "音楽",
-        "thumb": "https://img.youtube.com/vi/R0Ij85PKCKI/maxresdefault.jpg",
-        "url": "https://youtu.be/R0Ij85PKCKI?si=t5oEvnHH_9-FIyoC",
-        "date": "2023.10"
-    },
-    {
-        "title": "#BRAINBREAK_VRC 出演＠VRChat",
-        "tag": "音楽",
-        "thumb": "assets/images/bb.jpg",
-        "url": "",
-        "date": "2022.12"
-    },
-    {
-        "title": "Life goes on EP",
-        "tag": "音楽",
-        "thumb": "https://i1.sndcdn.com/artworks-XD0dTPDPtX5JWVUz-mxXHPA-t1080x1080.jpg",
-        "url": "https://youtu.be/DlF3gm22Hm4?si=9lLOafVm5dXbmfFE",
-        "date": "2022.4"
-    },
-    {
-        "title": "lJUS 3/20211024 \"Lab\" 出演@VRChat",
-        "tag": "音楽",
-        "thumb": "assets/images/ljus.jpg",
-        "url": "",
-        "date": "2021.11"
-    },
-    {
-        "title": "My Brave Story EP",
-        "tag": "音楽",
-        "thumb": "https://f4.bcbits.com/img/a0162034650_10.jpg",
-        "url": "https://yot-kun.bandcamp.com/album/my-brave-story-ep",
-        "date": "2021.11"
-    },
-    {
-        "title": "AMENZOOSTREAM 出演@Twitch",
-        "tag": "音楽",
-        "thumb": "assets/images/amenzoos.jpg",
-        "url": "",
-        "date": "2020.11"
-    },
-    {
-        "title": "AmenZoo @Amsterdam",
-        "tag": "音楽",
-        "thumb": "assets/images/amenzoo.jpg",
-        "url": "",
-        "date": "2019.9"
-    },
-    {
-        "title": "e-vacillation",
-        "tag": "音楽",
-        "thumb": "https://f4.bcbits.com/img/a3462619655_10.jpg",
-        "url": "https://yot-kun.bandcamp.com/album/e-vacillation",
-        "date": "2019.5"
-    },
-    {
-        "title": "ANGURA vol.9 @Vancouver",
-        "tag": "音楽",
-        "thumb": "assets/images/angura.jpeg",
-        "url": "",
-        "date": "2018.3"
-    },
-    {
-        "title": "ミュージックハッカソン in いいかねPalette",
-        "tag": "音楽",
-        "thumb": "",
-        "url": "",
-        "date": "2023",
-        "description": "一泊二日で音楽を作るDTMの合宿イベント。福岡県田川市にあるいいかねPaletteで開催。"
+        "date": "",
+        "description": "2017年より活動を開始した音楽プロジェクト。IDMやElectronicaを中心に制作し、自主制作アルバムを毎年リリース。これまでにバンクーバー・アムステルダム等海外でのライブ出演、2020以降VRChatでのライブがメイン。
+
+・SanrioVFes 2023 「はじまりはおわり、feat.kinu」の楽曲制作を担当。
+・SanrioVFes 2024 Summer新作ミニパレード「Musical Treasure Hunt – Spectral Remix」の作曲・サウンドデザイン。
+・SanrioVFes 2025 VTuberキヌの新作ショー「トーチライト」にて楽曲制作を担当。イギリスの国際映画祭『Raindance Immersive 2025』にて、BEST MUSIC SHOWを受賞。
+・大阪・関西万博 EXPOホール「シャインハット」投影用アンビエント作品、こみゃくシミュレーションの映像で音楽を担当
+
+ポートフォリオ
+
+Spotify"
     },
     {
         "title": "次世代型ITスクール ITeens Lab 講師",
