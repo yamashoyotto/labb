@@ -6,6 +6,179 @@
   <title>my purpose — やましょー</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <style>
+    .purpose-page {
+      padding: 48px 0 100px;
+      max-width: 720px;
+    }
+
+    /* ヘッダー */
+    .purpose-eyebrow {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .purpose-headline {
+      font-family: var(--font-jp);
+      font-size: clamp(1.75rem, 5vw, 2.75rem);
+      font-weight: 700;
+      line-height: 1.25;
+      color: var(--fg);
+      margin-bottom: 12px;
+    }
+
+    .purpose-headline em {
+      font-style: normal;
+      color: var(--accent);
+      border-bottom: 3px solid var(--accent);
+      padding-bottom: 2px;
+    }
+
+    .purpose-lead {
+      font-family: var(--font-jp);
+      font-size: 0.9375rem;
+      line-height: 1.85;
+      color: var(--fg-sub);
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 56px;
+    }
+
+    /* セクション */
+    .purpose-section {
+      margin-bottom: 56px;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .purpose-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .ps-heading {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      margin-bottom: 24px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--fg);
+    }
+
+    .ps-num {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    .ps-title {
+      font-family: var(--font-jp);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--fg);
+    }
+
+    .ps-body {
+      font-family: var(--font-jp);
+      font-size: 0.9375rem;
+      line-height: 1.95;
+      color: var(--fg-sub);
+    }
+
+    .ps-body p {
+      margin-bottom: 20px;
+    }
+
+    .ps-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* リスト */
+    .ps-list {
+      margin: 16px 0 20px 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .ps-list li {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      font-family: var(--font-jp);
+      font-size: 0.9375rem;
+      line-height: 1.6;
+      color: var(--fg-sub);
+    }
+
+    .ps-list li::before {
+      content: '';
+      display: block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      margin-top: 7px;
+    }
+
+    /* 強調ブロック */
+    .ps-callout {
+      background: var(--bg-sub);
+      border-left: 4px solid var(--accent);
+      padding: 20px 24px;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      margin: 24px 0;
+      font-family: var(--font-jp);
+      font-size: 0.9375rem;
+      line-height: 1.85;
+      color: var(--fg);
+    }
+
+    /* ページ上部のキャッチ */
+    .purpose-top-banner {
+      background: var(--fg);
+      color: var(--bg);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      margin-bottom: 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .ptb-label {
+      font-family: var(--font-sans);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .ptb-text {
+      font-family: var(--font-jp);
+      font-size: clamp(1.25rem, 4vw, 2rem);
+      font-weight: 700;
+      line-height: 1.3;
+      color: #fff;
+    }
+
+    .ptb-text em {
+      font-style: normal;
+      color: #f5a623;
+    }
+  </style>
 </head>
 <body>
 
@@ -25,38 +198,112 @@
 <main>
   <div class="purpose-page">
 
-    <div class="purpose-heading">
-      <div class="purpose-en">my purpose</div>
-      <div class="purpose-ja">やましょーの目的・想い</div>
+    <div class="purpose-eyebrow">My Purpose</div>
+    <h1 class="purpose-headline">世界を編集して、<br><em>一緒に遊ぼう！</em></h1>
+    <p class="purpose-lead">自分が生きていく上での様々な判断をするときに、人生の目的に立ち帰れるように、言葉にしてまとめています。</p>
+
+    <!-- SECTION 1 -->
+    <div class="purpose-section" id="ps1">
+      <div class="ps-heading">
+        <div class="ps-num">1</div>
+        <div class="ps-title">このパーパスに込めていること</div>
+      </div>
+      <div class="ps-body">
+        <p>僕のマイパーパスは、</p>
+
+        <div class="purpose-top-banner">
+          <div class="ptb-label">My Purpose</div>
+          <div class="ptb-text"><em>世界を編集して、一緒に遊ぼう！</em></div>
+        </div>
+
+        <p>という一文に集約されています。<br>
+        ここでいう「編集」は、本や動画の編集に限りません。</p>
+
+        <ul class="ps-list">
+          <li>音楽制作</li>
+          <li>空間づくり</li>
+          <li>学び方</li>
+          <li>人間関係</li>
+          <li>仕事やお金との付き合い方</li>
+          <li>人生経験</li>
+        </ul>
+
+        <p>こうしたもの同士の「つながり方」を組み替えていくことを、広い意味での「編集」と呼んでいます。</p>
+
+        <p>そして「一緒に遊ぶ」とは、誰かと並んで</p>
+
+        <ul class="ps-list">
+          <li>試してみる</li>
+          <li>失敗してみる</li>
+          <li>いつもと違うやり方・組み合わせをやってみる</li>
+        </ul>
+
+        <p>というプロセスを通して、自分や世界の見え方を少しずつ変えていくことです。</p>
+
+        <div class="ps-callout">
+          僕は、世界にすでにある断片を集め、組み替え、意味を見つけていくことが好きです。その自分の性質を、そのまま言葉にしたのが、このパーパスです。
+        </div>
+      </div>
     </div>
 
-    <div class="purpose-blocks">
+    <!-- SECTION 2 -->
+    <div class="purpose-section" id="ps2">
+      <div class="ps-heading">
+        <div class="ps-num">2</div>
+        <div class="ps-title">なぜ「編集」なのか</div>
+      </div>
+      <div class="ps-body">
+        <p>中学生のころから続けてきた音楽制作を振り返ると、僕のやっていることは「作曲」というより、ずっとコラージュやリミックスに近いと感じます。</p>
 
-      <div class="purpose-block">
-        <div class="pb-label">01 — 音楽</div>
-        <div class="pb-title">音を編集して、感情と構造の境界を探る</div>
-        <div class="pb-text">
-          2017年からIDMやエレクトロニカを軸に制作。リズムと音楽、調性とノイズのあわいを編集しながら、構造と感情の境界を探っています。メタバース空間での活動を通じて、物理的な場所に縛られない音楽体験の可能性を追求しています。
+        <ul class="ps-list">
+          <li>既存の曲や環境音、ノイズを録音・収集する</li>
+          <li>それを切り貼りしたり、加工したり、確率的なアルゴリズムで鳴らしたりする</li>
+          <li>そうしているうちに、「自分だけの意味」や「まだ聴いたことのない景色」が立ち上がってくる</li>
+        </ul>
+
+        <p>この感覚は、音楽以外にも広がっています。</p>
+
+        <ul class="ps-list">
+          <li>山での暮らしでは、「生き方」そのものを組み替えてみた</li>
+          <li>VRやメタバースでは、「場」「身体性」「距離感」の編集ができると気づいた</li>
+          <li>教育の現場では、「学び方」と「自己イメージ」の編集を手伝っている</li>
+        </ul>
+
+        <div class="ps-callout">
+          世界は、最初から完成されたものではなく、編集可能な素材の集合だ。<br><br>
+          そう捉え直したとき、バラバラだった経験が一本の線でつながりました。だから僕は、「編集」を自分の核に置いています。
         </div>
       </div>
-
-      <div class="purpose-block">
-        <div class="pb-label">02 — 教育</div>
-        <div class="pb-title">「つくるって楽しい！」を一緒に体験する</div>
-        <div class="pb-text">
-          音楽制作の楽しさを伝えることも、創作活動の延長として大切にしています。音楽理論からではなく、音を素材として集め、コラージュのように編集することを中心にした指導スタイルで、楽器が弾けない人でも音楽が作れる体験を提供しています。
-        </div>
-      </div>
-
-      <div class="purpose-block">
-        <div class="pb-label">03 — コミュニティ</div>
-        <div class="pb-title">年齢・経歴・場所を越えた交流</div>
-        <div class="pb-text">
-          VRChatでの音楽制作者コミュニティ「SoundGeek」の主催や、いいかねPaletteでのシェアハウス生活を通じて、場所や経歴を越えてつながることの面白さを知りました。様々な人と協力してものを作ることそのものが、自分にとって一つの目的です。
-        </div>
-      </div>
-
     </div>
+
+    <!-- SECTION 3 -->
+    <div class="purpose-section" id="ps3">
+      <div class="ps-heading">
+        <div class="ps-num">3</div>
+        <div class="ps-title">なぜ「遊ぶ」のか</div>
+      </div>
+      <div class="ps-body">
+        <p>もう一つのキーワードが「遊ぶ」です。<br>
+        ここで言っている「遊び」は、ただの暇つぶしではありません。</p>
+
+        <ul class="ps-list">
+          <li>失敗を前提に、試行錯誤してみる</li>
+          <li>いつもの役割から少しはみ出してみる</li>
+          <li>「こうあるべき」から一歩外れて、自分の本音を試してみる</li>
+        </ul>
+
+        <p>こうしたことを通じて、人が変化していくための余白をつくる行為が、僕にとっての「遊び」です。</p>
+
+        <div class="ps-callout">
+          音楽制作も、メタバースも、授業も、対話の場も、僕にとってはすべて、<br>
+          <strong>人が安心して「変わってみる」ことができる遊び場をつくる試み</strong><br>
+          です。
+        </div>
+
+        <p>だからパーパスは「世界を編集する」だけで終わりません。編集した世界の中で、一緒に試してくれる他者がいて、初めて意味が生まれます。その感覚を、とても大事にしたいと思っています。</p>
+      </div>
+    </div>
+
   </div>
 </main>
 
@@ -68,5 +315,16 @@
     <a href="https://yot-kun.bandcamp.com/">Bandcamp</a>
   </div>
 </footer>
+
+<script>
+  const obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.purpose-section').forEach(function(el) {
+    obs.observe(el);
+  });
+</script>
 </body>
 </html>
