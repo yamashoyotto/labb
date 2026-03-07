@@ -361,7 +361,6 @@ main { padding: 0 0 80px; }
 
 .profile-header {
     padding-bottom: 32px;
-    border-bottom: 1px solid var(--border);
     margin-bottom: 40px;
 }
 
