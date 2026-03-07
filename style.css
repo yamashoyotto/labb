@@ -39,8 +39,8 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 28px 0 24px;
-    border-bottom: 2px solid var(--fg);
+    padding: 20px 0 16px;
+
 }
 
 .logo-wrap {
@@ -62,9 +62,7 @@ header {
 .logo-sub {
     font-family: var(--font-sans);
     font-size: 0.72rem;
-    font-weight: 400;
-    letter-spacing: 0.12em;
-    color: var(--muted);
+    display: none;
 }
 
 nav {
@@ -487,7 +485,7 @@ main { padding: 0 0 80px; }
 
 .purpose-heading {
     padding-bottom: 32px;
-    border-bottom: 2px solid var(--fg);
+
     margin-bottom: 40px;
 }
 
@@ -597,17 +595,18 @@ main { padding: 0 0 80px; }
     font-family: var(--font-jp);
     font-size: 0.875rem;
     font-weight: 500;
-    color: var(--fg-sub);
-    border: 1.5px solid var(--border);
+    color: var(--accent);
+    border: 1.5px solid var(--accent);
     padding: 8px 18px;
-    border-radius: var(--radius);
-    transition: all 0.15s;
+    border-radius: 100px;
+    transition: all 0.2s;
 }
 
 .contact-social a:hover {
-    border-color: var(--fg);
-    color: var(--fg);
-    background: var(--bg-sub);
+    color: var(--accent);
+    border-color: var(--accent);
+    background: var(--accent-bg);
+    box-shadow: 0 0 12px rgba(217, 79, 0, 0.35), 0 0 28px rgba(217, 79, 0, 0.15);
 }
 
 /* ─── FOOTER ──────────────────────────────── */
@@ -672,4 +671,37 @@ footer    { animation: fadeUp 0.5s 0.3s cubic-bezier(0.16, 1, 0.3, 1) both; }
     .logo-main { font-size: 1.05rem; }
     .detail-inner { flex-direction: column; }
     .contact-email { font-size: 1.125rem; }
+}
+
+/* ─── PURPOSE BANNER (profile page) ──────── */
+.purpose-link-banner {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: var(--fg);
+    color: var(--bg);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    margin: 28px 0 40px;
+    text-decoration: none;
+    transition: background 0.15s;
+}
+
+.purpose-link-banner:hover {
+    background: var(--accent);
+}
+
+.plb-label {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.55;
+}
+
+.plb-text {
+    font-family: var(--font-jp);
+    font-size: 1.0625rem;
+    font-weight: 700;
 }
