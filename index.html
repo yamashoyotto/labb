@@ -95,11 +95,16 @@
 }
 
 .accordion-item.open .acc-trigger {
-  aspect-ratio: 16 / 9;
-  align-items: flex-start;        /* 下→上 */
+  align-items: flex-start;
   padding: 20px 16px;
   color: #fff;
   text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+}
+
+@media (max-width: 640px) {
+  .accordion-item.open .acc-trigger {
+    aspect-ratio: 16 / 9;
+  }
 }
 
 .accordion-item.open .acc-tag {
