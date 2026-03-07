@@ -141,11 +141,18 @@
       background: transparent;
     }
 
-    .acc-left {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
+.acc-left {
+  position: relative;
+  z-index: 1;
+  padding: 6px 10px;
+  border-radius: var(--radius);
+  background: transparent;
+  transition: background 0.4s ease;
+}
+
+.accordion-item.open .acc-left {
+  background: rgba(255, 255, 255, 0.85);
+}
 
     .acc-tag {
       font-family: var(--font-sans);
