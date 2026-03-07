@@ -53,33 +53,43 @@
 
     /* ─── ACCORDION ───────────────────────────── */
     .accordion-item {
-      border-bottom: 1px solid var(--border);
-      position: relative;
-      overflow: hidden;
-    }
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
 
-    .accordion-item::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: var(--bg-img);
-      background-size: cover;
-      background-position: center;
-      opacity: 0;
-      transition: opacity 0.4s ease;
-      z-index: 0;
-    }
+.acc-trigger {
+  /* 既存のスタイルはそのまま */
+  position: relative;
+  overflow: hidden;
+}
 
-    .accordion-item:hover::before,
-    .accordion-item.open::before {
-      opacity: 0.5;
-    }
+.acc-trigger::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--bg-img);
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 0;
+}
 
-    .acc-trigger, .acc-body {
-      position: relative;
-      z-index: 1;
-    }
+.acc-trigger:hover::before,
+.accordion-item.open .acc-trigger::before {
+  opacity: 0.5;
+}
 
+.acc-left,
+.acc-icon {
+  position: relative;
+  z-index: 1;
+}
+
+.acc-body {
+  position: relative;
+  z-index: 1;
+}
     .acc-trigger {
       width: 100%;
       display: flex;
