@@ -7,6 +7,23 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
+  <script>
+const revealObs = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e, i) {
+    if (e.isIntersecting) {
+      setTimeout(function() {
+        e.target.style.opacity = '0';
+        e.target.style.animation = 'fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+      }, i * 80);
+      revealObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.05 });
+
+document.querySelectorAll('main > *, .accordion-item, .tl-item, .purpose-section').forEach(function(el) {
+  revealObs.observe(el);
+});
+</script>
 <body>
 
 <header>
